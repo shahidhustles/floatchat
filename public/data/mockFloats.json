@@ -1,0 +1,1820 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "title": "India-Deployed ARGO Float Data - Global Distribution",
+    "description": "Mock dataset of 100 ARGO floats deployed by Indian institutions (INCOIS/NIOT/MoES) globally",
+    "generated": "2024-09-13T12:00:00Z",
+    "region": "Global (India-deployed)",
+    "deploying_institutions": ["INCOIS", "NIOT", "Ministry of Earth Sciences"],
+    "focus_regions": [
+      "Indian Ocean",
+      "Bay of Bengal",
+      "Arabian Sea",
+      "Southern Ocean",
+      "Pacific Ocean"
+    ],
+    "total_floats": 100
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [92.4, 21.9]
+      },
+      "properties": {
+        "id": "IND_BOB_5904000",
+        "temperature": 27.9,
+        "salinity": 35.7,
+        "depth": 1924,
+        "lastTransmission": "2025-08-23T12:39:53.101Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [93.3, 7.4]
+      },
+      "properties": {
+        "id": "IND_BOB_5904001",
+        "temperature": 31.6,
+        "salinity": 35.7,
+        "depth": 667,
+        "lastTransmission": "2025-09-05T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [89.6, 13.9]
+      },
+      "properties": {
+        "id": "IND_BOB_5904002",
+        "temperature": 28.5,
+        "salinity": 33.4,
+        "depth": 678,
+        "lastTransmission": "2025-09-09T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [94.1, 14.9]
+      },
+      "properties": {
+        "id": "IND_BOB_5904003",
+        "temperature": 30,
+        "salinity": 33.4,
+        "depth": 1351,
+        "lastTransmission": "2025-08-20T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [95.8, 14.8]
+      },
+      "properties": {
+        "id": "IND_BOB_5904004",
+        "temperature": 31,
+        "salinity": 36,
+        "depth": 1913,
+        "lastTransmission": "2025-09-04T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [95, 15.6]
+      },
+      "properties": {
+        "id": "IND_BOB_5904005",
+        "temperature": 31.6,
+        "salinity": 34.9,
+        "depth": 581,
+        "lastTransmission": "2025-09-08T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [90.8, 21.3]
+      },
+      "properties": {
+        "id": "IND_BOB_5904006",
+        "temperature": 31.6,
+        "salinity": 34.3,
+        "depth": 1476,
+        "lastTransmission": "2025-08-17T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Bay of Bengal",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [98.9, 19.5]
+      },
+      "properties": {
+        "id": "IND_BOB_5904007",
+        "temperature": 28.4,
+        "salinity": 33.4,
+        "depth": 1769,
+        "lastTransmission": "2025-08-24T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [80.2, 13.4]
+      },
+      "properties": {
+        "id": "IND_BOB_5904008",
+        "temperature": 29,
+        "salinity": 33.7,
+        "depth": 2037,
+        "lastTransmission": "2025-08-27T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [89, 15.6]
+      },
+      "properties": {
+        "id": "IND_BOB_5904009",
+        "temperature": 28.6,
+        "salinity": 33.9,
+        "depth": 1794,
+        "lastTransmission": "2025-09-06T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [93.7, 8.5]
+      },
+      "properties": {
+        "id": "IND_BOB_5904010",
+        "temperature": 31.1,
+        "salinity": 34.4,
+        "depth": 1821,
+        "lastTransmission": "2025-08-15T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [89.2, 13.6]
+      },
+      "properties": {
+        "id": "IND_BOB_5904011",
+        "temperature": 30.7,
+        "salinity": 35.9,
+        "depth": 932,
+        "lastTransmission": "2025-08-15T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [92.2, 6.7]
+      },
+      "properties": {
+        "id": "IND_BOB_5904012",
+        "temperature": 29.4,
+        "salinity": 37,
+        "depth": 843,
+        "lastTransmission": "2025-08-28T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [89.8, 16]
+      },
+      "properties": {
+        "id": "IND_BOB_5904013",
+        "temperature": 30.6,
+        "salinity": 36.8,
+        "depth": 1413,
+        "lastTransmission": "2025-08-18T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [81.9, 19.6]
+      },
+      "properties": {
+        "id": "IND_BOB_5904014",
+        "temperature": 30.3,
+        "salinity": 33.8,
+        "depth": 1165,
+        "lastTransmission": "2025-08-31T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [95.4, 16.8]
+      },
+      "properties": {
+        "id": "IND_BOB_5904015",
+        "temperature": 31.9,
+        "salinity": 34.5,
+        "depth": 1702,
+        "lastTransmission": "2025-09-06T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Bay of Bengal",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [88.7, 17.3]
+      },
+      "properties": {
+        "id": "IND_BOB_5904016",
+        "temperature": 28.9,
+        "salinity": 34.4,
+        "depth": 2242,
+        "lastTransmission": "2025-08-28T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [80.6, 11.5]
+      },
+      "properties": {
+        "id": "IND_BOB_5904017",
+        "temperature": 31.3,
+        "salinity": 36.3,
+        "depth": 525,
+        "lastTransmission": "2025-09-08T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [86.3, 5.2]
+      },
+      "properties": {
+        "id": "IND_BOB_5904018",
+        "temperature": 29.5,
+        "salinity": 36.5,
+        "depth": 1375,
+        "lastTransmission": "2025-08-26T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [87.8, 21.9]
+      },
+      "properties": {
+        "id": "IND_BOB_5904019",
+        "temperature": 28.3,
+        "salinity": 36.7,
+        "depth": 1258,
+        "lastTransmission": "2025-09-13T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [85.4, 7.6]
+      },
+      "properties": {
+        "id": "IND_BOB_5904020",
+        "temperature": 30.1,
+        "salinity": 34.5,
+        "depth": 746,
+        "lastTransmission": "2025-08-18T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [99.1, 17.3]
+      },
+      "properties": {
+        "id": "IND_BOB_5904021",
+        "temperature": 31.7,
+        "salinity": 35,
+        "depth": 729,
+        "lastTransmission": "2025-08-20T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [87.7, 8.2]
+      },
+      "properties": {
+        "id": "IND_BOB_5904022",
+        "temperature": 31,
+        "salinity": 34.9,
+        "depth": 2326,
+        "lastTransmission": "2025-08-17T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [81.6, 7.9]
+      },
+      "properties": {
+        "id": "IND_BOB_5904023",
+        "temperature": 26.8,
+        "salinity": 36.1,
+        "depth": 710,
+        "lastTransmission": "2025-08-18T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [98.8, 21.7]
+      },
+      "properties": {
+        "id": "IND_BOB_5904024",
+        "temperature": 31.8,
+        "salinity": 36.4,
+        "depth": 1402,
+        "lastTransmission": "2025-09-05T12:39:53.102Z",
+        "status": "active",
+        "region": "Bay of Bengal",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [75.3, 20.5]
+      },
+      "properties": {
+        "id": "IND_AS_5904025",
+        "temperature": 30.9,
+        "salinity": 34.4,
+        "depth": 1908,
+        "lastTransmission": "2025-08-15T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [76.3, 23.3]
+      },
+      "properties": {
+        "id": "IND_AS_5904026",
+        "temperature": 29,
+        "salinity": 34.1,
+        "depth": 685,
+        "lastTransmission": "2025-08-31T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Arabian Sea",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [73.3, 17.4]
+      },
+      "properties": {
+        "id": "IND_AS_5904027",
+        "temperature": 31.7,
+        "salinity": 33.8,
+        "depth": 2444,
+        "lastTransmission": "2025-09-06T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [68.5, 6.7]
+      },
+      "properties": {
+        "id": "IND_AS_5904028",
+        "temperature": 31.9,
+        "salinity": 36.5,
+        "depth": 1081,
+        "lastTransmission": "2025-08-16T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [68.4, 16.3]
+      },
+      "properties": {
+        "id": "IND_AS_5904029",
+        "temperature": 26.2,
+        "salinity": 34.8,
+        "depth": 2217,
+        "lastTransmission": "2025-09-02T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [71.6, 13.5]
+      },
+      "properties": {
+        "id": "IND_AS_5904030",
+        "temperature": 26.2,
+        "salinity": 35,
+        "depth": 562,
+        "lastTransmission": "2025-08-27T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [68.6, 10.8]
+      },
+      "properties": {
+        "id": "IND_AS_5904031",
+        "temperature": 28.1,
+        "salinity": 36.3,
+        "depth": 1191,
+        "lastTransmission": "2025-08-25T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [74.9, 10.4]
+      },
+      "properties": {
+        "id": "IND_AS_5904032",
+        "temperature": 28,
+        "salinity": 34.1,
+        "depth": 2174,
+        "lastTransmission": "2025-08-30T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [64.7, 8.2]
+      },
+      "properties": {
+        "id": "IND_AS_5904033",
+        "temperature": 30.6,
+        "salinity": 34.4,
+        "depth": 735,
+        "lastTransmission": "2025-09-01T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [72, 20.4]
+      },
+      "properties": {
+        "id": "IND_AS_5904034",
+        "temperature": 31.8,
+        "salinity": 36.6,
+        "depth": 749,
+        "lastTransmission": "2025-08-23T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Arabian Sea",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [71.6, 12.3]
+      },
+      "properties": {
+        "id": "IND_AS_5904035",
+        "temperature": 27.4,
+        "salinity": 33.5,
+        "depth": 1723,
+        "lastTransmission": "2025-09-09T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [69, 11]
+      },
+      "properties": {
+        "id": "IND_AS_5904036",
+        "temperature": 31.2,
+        "salinity": 33.5,
+        "depth": 1164,
+        "lastTransmission": "2025-09-09T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [60.7, 24.9]
+      },
+      "properties": {
+        "id": "IND_AS_5904037",
+        "temperature": 31.4,
+        "salinity": 36.6,
+        "depth": 1997,
+        "lastTransmission": "2025-08-28T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [71.2, 11.8]
+      },
+      "properties": {
+        "id": "IND_AS_5904038",
+        "temperature": 31.1,
+        "salinity": 34.3,
+        "depth": 1734,
+        "lastTransmission": "2025-09-03T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [61.1, 17.8]
+      },
+      "properties": {
+        "id": "IND_AS_5904039",
+        "temperature": 31.6,
+        "salinity": 36.9,
+        "depth": 1086,
+        "lastTransmission": "2025-08-24T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [68.3, 8.6]
+      },
+      "properties": {
+        "id": "IND_AS_5904040",
+        "temperature": 27.9,
+        "salinity": 35.6,
+        "depth": 743,
+        "lastTransmission": "2025-08-25T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [77.9, 5.7]
+      },
+      "properties": {
+        "id": "IND_AS_5904041",
+        "temperature": 30.9,
+        "salinity": 33.5,
+        "depth": 2234,
+        "lastTransmission": "2025-09-10T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [62.3, 17.1]
+      },
+      "properties": {
+        "id": "IND_AS_5904042",
+        "temperature": 28.7,
+        "salinity": 35.2,
+        "depth": 1813,
+        "lastTransmission": "2025-09-11T12:39:53.102Z",
+        "status": "active",
+        "region": "Arabian Sea",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [73, 9.1]
+      },
+      "properties": {
+        "id": "IND_AS_5904043",
+        "temperature": 28.8,
+        "salinity": 35.6,
+        "depth": 2074,
+        "lastTransmission": "2025-08-30T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Arabian Sea",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [78.3, 23.7]
+      },
+      "properties": {
+        "id": "IND_AS_5904044",
+        "temperature": 32,
+        "salinity": 33.3,
+        "depth": 2083,
+        "lastTransmission": "2025-08-18T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Arabian Sea",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [72.5, -13]
+      },
+      "properties": {
+        "id": "IND_CIO_5904045",
+        "temperature": 24.6,
+        "salinity": 36.7,
+        "depth": 2049,
+        "lastTransmission": "2025-08-20T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [87.4, -12.7]
+      },
+      "properties": {
+        "id": "IND_CIO_5904046",
+        "temperature": 25.7,
+        "salinity": 36.7,
+        "depth": 1005,
+        "lastTransmission": "2025-08-15T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [74.9, -3.9]
+      },
+      "properties": {
+        "id": "IND_CIO_5904047",
+        "temperature": 26.1,
+        "salinity": 36.7,
+        "depth": 521,
+        "lastTransmission": "2025-08-27T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [72.3, -7.2]
+      },
+      "properties": {
+        "id": "IND_CIO_5904048",
+        "temperature": 24.2,
+        "salinity": 36.7,
+        "depth": 997,
+        "lastTransmission": "2025-09-08T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [83.7, -15.9]
+      },
+      "properties": {
+        "id": "IND_CIO_5904049",
+        "temperature": 20.5,
+        "salinity": 35.5,
+        "depth": 1196,
+        "lastTransmission": "2025-09-01T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [90.3, -0.2]
+      },
+      "properties": {
+        "id": "IND_CIO_5904050",
+        "temperature": 28,
+        "salinity": 34.1,
+        "depth": 2353,
+        "lastTransmission": "2025-08-31T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [70.2, -28.7]
+      },
+      "properties": {
+        "id": "IND_CIO_5904051",
+        "temperature": 22.6,
+        "salinity": 33.8,
+        "depth": 651,
+        "lastTransmission": "2025-09-11T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [79.5, -0.9]
+      },
+      "properties": {
+        "id": "IND_CIO_5904052",
+        "temperature": 25.2,
+        "salinity": 33.8,
+        "depth": 2331,
+        "lastTransmission": "2025-08-22T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Central Indian Ocean",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [85.6, -0.5]
+      },
+      "properties": {
+        "id": "IND_CIO_5904053",
+        "temperature": 23,
+        "salinity": 35.4,
+        "depth": 1069,
+        "lastTransmission": "2025-09-03T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [94.6, -3.2]
+      },
+      "properties": {
+        "id": "IND_CIO_5904054",
+        "temperature": 29.7,
+        "salinity": 36.1,
+        "depth": 2486,
+        "lastTransmission": "2025-09-01T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Central Indian Ocean",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [93.8, -7.9]
+      },
+      "properties": {
+        "id": "IND_CIO_5904055",
+        "temperature": 26.2,
+        "salinity": 33.6,
+        "depth": 2347,
+        "lastTransmission": "2025-09-02T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [74, -4.9]
+      },
+      "properties": {
+        "id": "IND_CIO_5904056",
+        "temperature": 29,
+        "salinity": 35.2,
+        "depth": 896,
+        "lastTransmission": "2025-08-18T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Central Indian Ocean",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [96.4, -24.5]
+      },
+      "properties": {
+        "id": "IND_CIO_5904057",
+        "temperature": 26.3,
+        "salinity": 34,
+        "depth": 693,
+        "lastTransmission": "2025-08-15T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Central Indian Ocean",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [85.6, -13]
+      },
+      "properties": {
+        "id": "IND_CIO_5904058",
+        "temperature": 20.7,
+        "salinity": 33.5,
+        "depth": 1158,
+        "lastTransmission": "2025-09-02T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [86.6, 3.1]
+      },
+      "properties": {
+        "id": "IND_CIO_5904059",
+        "temperature": 24,
+        "salinity": 36.3,
+        "depth": 2131,
+        "lastTransmission": "2025-09-13T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [81.6, -27.7]
+      },
+      "properties": {
+        "id": "IND_CIO_5904060",
+        "temperature": 25.6,
+        "salinity": 36.1,
+        "depth": 2231,
+        "lastTransmission": "2025-09-12T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [97.3, 5]
+      },
+      "properties": {
+        "id": "IND_CIO_5904061",
+        "temperature": 30,
+        "salinity": 36.9,
+        "depth": 1413,
+        "lastTransmission": "2025-09-10T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [72.9, -5.7]
+      },
+      "properties": {
+        "id": "IND_CIO_5904062",
+        "temperature": 27.1,
+        "salinity": 33.1,
+        "depth": 2033,
+        "lastTransmission": "2025-09-08T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Central Indian Ocean",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [74.3, -16.7]
+      },
+      "properties": {
+        "id": "IND_CIO_5904063",
+        "temperature": 20.3,
+        "salinity": 34.7,
+        "depth": 718,
+        "lastTransmission": "2025-08-16T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [79.3, -16.9]
+      },
+      "properties": {
+        "id": "IND_CIO_5904064",
+        "temperature": 21.1,
+        "salinity": 33.8,
+        "depth": 1781,
+        "lastTransmission": "2025-08-25T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [71.7, -14.2]
+      },
+      "properties": {
+        "id": "IND_CIO_5904065",
+        "temperature": 22.8,
+        "salinity": 35.4,
+        "depth": 2249,
+        "lastTransmission": "2025-09-13T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [89.7, 1.3]
+      },
+      "properties": {
+        "id": "IND_CIO_5904066",
+        "temperature": 24.1,
+        "salinity": 35.6,
+        "depth": 584,
+        "lastTransmission": "2025-09-02T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [74.1, -6.3]
+      },
+      "properties": {
+        "id": "IND_CIO_5904067",
+        "temperature": 26,
+        "salinity": 34.2,
+        "depth": 1656,
+        "lastTransmission": "2025-08-31T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [79.1, -27.8]
+      },
+      "properties": {
+        "id": "IND_CIO_5904068",
+        "temperature": 29.8,
+        "salinity": 34.2,
+        "depth": 1673,
+        "lastTransmission": "2025-09-13T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [83, -9.5]
+      },
+      "properties": {
+        "id": "IND_CIO_5904069",
+        "temperature": 29.7,
+        "salinity": 34,
+        "depth": 1521,
+        "lastTransmission": "2025-08-20T12:39:53.102Z",
+        "status": "active",
+        "region": "Central Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [88.7, -38]
+      },
+      "properties": {
+        "id": "IND_SIO_5904070",
+        "temperature": 11.7,
+        "salinity": 36.9,
+        "depth": 1071,
+        "lastTransmission": "2025-09-13T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [79.1, -33.6]
+      },
+      "properties": {
+        "id": "IND_SIO_5904071",
+        "temperature": 12,
+        "salinity": 37,
+        "depth": 2389,
+        "lastTransmission": "2025-08-28T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [58.5, -46.4]
+      },
+      "properties": {
+        "id": "IND_SIO_5904072",
+        "temperature": 18.1,
+        "salinity": 33.3,
+        "depth": 530,
+        "lastTransmission": "2025-08-15T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [75.9, -45.3]
+      },
+      "properties": {
+        "id": "IND_SIO_5904073",
+        "temperature": 18.5,
+        "salinity": 33.2,
+        "depth": 1314,
+        "lastTransmission": "2025-09-06T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [71.1, -49.7]
+      },
+      "properties": {
+        "id": "IND_SIO_5904074",
+        "temperature": 19.9,
+        "salinity": 35.5,
+        "depth": 1215,
+        "lastTransmission": "2025-08-19T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [96.6, -35.1]
+      },
+      "properties": {
+        "id": "IND_SIO_5904075",
+        "temperature": 12.7,
+        "salinity": 33.7,
+        "depth": 824,
+        "lastTransmission": "2025-09-11T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [60.1, -33.8]
+      },
+      "properties": {
+        "id": "IND_SIO_5904076",
+        "temperature": 12,
+        "salinity": 36,
+        "depth": 1016,
+        "lastTransmission": "2025-08-16T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [118.5, -34.2]
+      },
+      "properties": {
+        "id": "IND_SIO_5904077",
+        "temperature": 11,
+        "salinity": 33.4,
+        "depth": 1624,
+        "lastTransmission": "2025-08-15T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [110.5, -31.8]
+      },
+      "properties": {
+        "id": "IND_SIO_5904078",
+        "temperature": 14.5,
+        "salinity": 35,
+        "depth": 2180,
+        "lastTransmission": "2025-08-16T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [48.3, -40.9]
+      },
+      "properties": {
+        "id": "IND_SIO_5904079",
+        "temperature": 12.1,
+        "salinity": 34.5,
+        "depth": 2384,
+        "lastTransmission": "2025-09-09T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [79.1, -41.8]
+      },
+      "properties": {
+        "id": "IND_SIO_5904080",
+        "temperature": 13.5,
+        "salinity": 34.5,
+        "depth": 508,
+        "lastTransmission": "2025-08-15T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [75.7, -49.6]
+      },
+      "properties": {
+        "id": "IND_SIO_5904081",
+        "temperature": 19.8,
+        "salinity": 35.4,
+        "depth": 2423,
+        "lastTransmission": "2025-09-10T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [116.3, -31.1]
+      },
+      "properties": {
+        "id": "IND_SIO_5904082",
+        "temperature": 19.3,
+        "salinity": 34.4,
+        "depth": 2237,
+        "lastTransmission": "2025-08-29T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [50, -48.2]
+      },
+      "properties": {
+        "id": "IND_SIO_5904083",
+        "temperature": 19.1,
+        "salinity": 36.2,
+        "depth": 1575,
+        "lastTransmission": "2025-09-12T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.6, -39]
+      },
+      "properties": {
+        "id": "IND_SIO_5904084",
+        "temperature": 11.9,
+        "salinity": 33.3,
+        "depth": 1311,
+        "lastTransmission": "2025-09-03T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Indian Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [133, 0.4]
+      },
+      "properties": {
+        "id": "IND_PAC_5904085",
+        "temperature": 27.7,
+        "salinity": 36.2,
+        "depth": 2198,
+        "lastTransmission": "2025-09-07T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Pacific Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [124.7, 0.9]
+      },
+      "properties": {
+        "id": "IND_PAC_5904086",
+        "temperature": 28.8,
+        "salinity": 36.5,
+        "depth": 1099,
+        "lastTransmission": "2025-08-29T12:39:53.102Z",
+        "status": "active",
+        "region": "Pacific Ocean",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [122.4, 7.9]
+      },
+      "properties": {
+        "id": "IND_PAC_5904087",
+        "temperature": 22.3,
+        "salinity": 33.9,
+        "depth": 2095,
+        "lastTransmission": "2025-09-10T12:39:53.102Z",
+        "status": "active",
+        "region": "Pacific Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [127.9, -14.7]
+      },
+      "properties": {
+        "id": "IND_PAC_5904088",
+        "temperature": 23.8,
+        "salinity": 36.6,
+        "depth": 1096,
+        "lastTransmission": "2025-09-08T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Pacific Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [163.1, 13.2]
+      },
+      "properties": {
+        "id": "IND_PAC_5904089",
+        "temperature": 23.5,
+        "salinity": 36.3,
+        "depth": 1490,
+        "lastTransmission": "2025-09-12T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Pacific Ocean",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [174.1, 5.3]
+      },
+      "properties": {
+        "id": "IND_PAC_5904090",
+        "temperature": 26.2,
+        "salinity": 33.3,
+        "depth": 1251,
+        "lastTransmission": "2025-08-20T12:39:53.102Z",
+        "status": "active",
+        "region": "Pacific Ocean",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [156, -4.3]
+      },
+      "properties": {
+        "id": "IND_PAC_5904091",
+        "temperature": 27.1,
+        "salinity": 36,
+        "depth": 1917,
+        "lastTransmission": "2025-08-25T12:39:53.102Z",
+        "status": "active",
+        "region": "Pacific Ocean",
+        "deployedBy": "INCOIS-Hyderabad",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [124.9, -5.2]
+      },
+      "properties": {
+        "id": "IND_PAC_5904092",
+        "temperature": 28.2,
+        "salinity": 33.8,
+        "depth": 2237,
+        "lastTransmission": "2025-08-23T12:39:53.102Z",
+        "status": "active",
+        "region": "Pacific Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [150.8, 15.6]
+      },
+      "properties": {
+        "id": "IND_PAC_5904093",
+        "temperature": 22.4,
+        "salinity": 36.2,
+        "depth": 518,
+        "lastTransmission": "2025-09-10T12:39:53.102Z",
+        "status": "active",
+        "region": "Pacific Ocean",
+        "deployedBy": "MoES-Chennai",
+        "deploymentYear": 2021
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [130.4, -0.6]
+      },
+      "properties": {
+        "id": "IND_PAC_5904094",
+        "temperature": 28.5,
+        "salinity": 35.3,
+        "depth": 1484,
+        "lastTransmission": "2025-08-28T12:39:53.102Z",
+        "status": "active",
+        "region": "Pacific Ocean",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [78.7, -58.9]
+      },
+      "properties": {
+        "id": "IND_SO_5904095",
+        "temperature": 18,
+        "salinity": 36.8,
+        "depth": 809,
+        "lastTransmission": "2025-08-22T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Ocean",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [81.6, -59]
+      },
+      "properties": {
+        "id": "IND_SO_5904096",
+        "temperature": 10.6,
+        "salinity": 34.9,
+        "depth": 1476,
+        "lastTransmission": "2025-09-13T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [88.5, -44]
+      },
+      "properties": {
+        "id": "IND_SO_5904097",
+        "temperature": 13.9,
+        "salinity": 33.9,
+        "depth": 1366,
+        "lastTransmission": "2025-09-02T12:39:53.102Z",
+        "status": "inactive",
+        "region": "Southern Ocean",
+        "deployedBy": "NIOT-Chennai",
+        "deploymentYear": 2022
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [143.3, -52.4]
+      },
+      "properties": {
+        "id": "IND_SO_5904098",
+        "temperature": 19.6,
+        "salinity": 34.1,
+        "depth": 2399,
+        "lastTransmission": "2025-08-18T12:39:53.102Z",
+        "status": "maintenance",
+        "region": "Southern Ocean",
+        "deployedBy": "INCOIS",
+        "deploymentYear": 2020
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [82.4, -48.6]
+      },
+      "properties": {
+        "id": "IND_SO_5904099",
+        "temperature": 12.1,
+        "salinity": 33.6,
+        "depth": 1351,
+        "lastTransmission": "2025-09-11T12:39:53.102Z",
+        "status": "active",
+        "region": "Southern Ocean",
+        "deployedBy": "NIOT",
+        "deploymentYear": 2020
+      }
+    }
+  ]
+}

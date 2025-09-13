@@ -1,0 +1,45 @@
+<!-- ARGO Float 3D Icon SVG -->
+<svg width="32" height="48" viewBox="0 0 32 48" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="floatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1D4ED8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="antennaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D97706;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+      <feOffset dx="1" dy="2" result="offset" />
+      <feFlood flood-color="#000000" flood-opacity="0.3"/>
+      <feComposite in2="offset" operator="in"/>
+      <feMerge> 
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Main Float Body -->
+  <ellipse cx="16" cy="35" rx="10" ry="8" fill="url(#floatGradient)" filter="url(#shadow)" stroke="#1E40AF" stroke-width="0.5"/>
+  
+  <!-- Antenna/Communication Module -->
+  <rect x="14" y="20" width="4" height="15" fill="url(#antennaGradient)" filter="url(#shadow)" rx="2"/>
+  
+  <!-- Top Communication Dome -->
+  <circle cx="16" cy="22" r="6" fill="url(#antennaGradient)" filter="url(#shadow)" stroke="#D97706" stroke-width="0.5"/>
+  
+  <!-- Signal Indicator -->
+  <circle cx="16" cy="22" r="2" fill="#FEF3C7" opacity="0.8"/>
+  
+  <!-- Status Light -->
+  <circle cx="20" cy="35" r="1.5" fill="#10B981" opacity="0.9"/>
+  
+  <!-- Sensor Array -->
+  <rect x="6" y="38" width="2" height="4" fill="#6B7280" rx="1"/>
+  <rect x="10" y="38" width="2" height="4" fill="#6B7280" rx="1"/>
+  <rect x="20" y="38" width="2" height="4" fill="#6B7280" rx="1"/>
+  <rect x="24" y="38" width="2" height="4" fill="#6B7280" rx="1"/>
+</svg>

@@ -20,7 +20,7 @@ export default function Globe() {
         dark: 0,
         diffuse: 1.2,
         mapSamples: 16000,
-        mapBrightness: 100,
+        mapBrightness: 10,
         baseColor: [0.1, 0.2, 0.4],
         markerColor: [1, 1, 1],
         glowColor: [0.1, 0.4, 0.8],
@@ -55,7 +55,7 @@ export default function Globe() {
         ],
         onRender: (state) => {
           // Auto-rotate the globe
-          phi += 0.003;
+          phi += 0.008;
           state.phi = phi;
         },
       });

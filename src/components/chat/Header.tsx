@@ -12,13 +12,13 @@ export default function Header() {
           V1
         </span>
         <span className="font-light"> — the </span>
-        <span className="font-bold italic text-transparent bg-gradient-to-r from-sky-500 to-blue-700 bg-clip-text">
+        <span className="font-bold italic text-transparent bg-blue-700 bg-clip-text">
           &nbsp;Future&nbsp;
         </span>
         <br />
         <span className="font-light">of </span>
         <span className="font-medium">ocean </span>
-        <span className="font-bold italic text-transparent bg-gradient-to-r from-blue-700 to-sky-500 bg-clip-text underline decoration-2 underline-offset-4">
+        <span className="font-bold italic text-transparent bg-blue-700 bg-clip-text underline decoration-2 underline-offset-4">
           data analysis&nbsp;
         </span>
         <span className="font-light"> is here.</span>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import MapContainer from "./components/MapContainer";
+import MapContainer from "../../components/dashboard/MapContainer";
 
 export default function DashboardPage() {
   const handleMapLoad = (map: mapboxgl.Map) => {

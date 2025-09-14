@@ -7,7 +7,7 @@ import ChatInput from "@/components/chat/ChatInput";
 
 export default function ChatPage() {
   return (
-    <div className="relative min-h-screen bg-white overflow-hidden">
+    <div className="relative max-h-screen bg-white overflow-hidden">
       {/* Top Gradient Background */}
       <div
         className="absolute top-0 left-0 w-full h-[520px] z-0 pointer-events-none"

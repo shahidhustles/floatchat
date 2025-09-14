@@ -15,11 +15,25 @@
     "@deck.gl/layers": "^9.1.14",
     "@deck.gl/mapbox": "^9.1.14",
     "@deck.gl/react": "^9.1.14",
+    "@radix-ui/react-avatar": "^1.1.10",
+    "@radix-ui/react-scroll-area": "^1.2.10",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cobe": "^0.6.4",
     "deck.gl": "^9.1.14",
+    "lucide-react": "^0.544.0",
     "next": "15.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-map-gl": "^8.0.4"
+    "react-map-gl": "^8.0.4",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^15.6.6",
+    "react-textarea-autosize": "^8.5.9",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -33,6 +47,7 @@
     "eslint-config-next": "15.5.3",
     "mapbox-gl": "^3.15.0",
     "tailwindcss": "^4",
+    "tw-animate-css": "^1.3.8",
     "typescript": "^5"
   }
 }

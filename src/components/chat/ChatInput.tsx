@@ -81,7 +81,7 @@ export default function ChatInput({
         {/* Bottom Helper Text */}
         <div className="text-xs text-slate-700 mt-2 text-center drop-shadow-sm">
           FloatChat can help analyze oceanographic data, visualize trends, and
-          provide research insights. 
+          provide research insights.
         </div>
       </form>
     </div>

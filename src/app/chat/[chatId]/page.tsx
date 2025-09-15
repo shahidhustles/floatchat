@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, use } from "react";
+import React, { useEffect, useRef, use } from "react";
 import ChatInput from "@/components/chat/ChatInput";
 import MessageBubble from "@/components/chat/MessageBubble";
+import { useChat } from "@ai-sdk/react";
 
 interface Message {
   id: string;
@@ -23,126 +24,56 @@ interface ChatInstancePageProps {
 export default function ChatInstancePage({
   searchParams,
 }: ChatInstancePageProps) {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
   // Unwrap the searchParams promise
   const unwrappedSearchParams = use(searchParams);
 
-  // Initialize with the initial message if provided
+  // Ref for scrolling to bottom
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Use the useChat hook from AI SDK
+  const { messages, isLoading, append } = useChat({
+    api: "/api/chat",
+  });
+
+  // Handle initial message from search params
   useEffect(() => {
-    if (unwrappedSearchParams.initialMessage) {
-      const userMessage: Message = {
-        id: "1",
+    if (unwrappedSearchParams.initialMessage && messages.length === 0) {
+      const initialMsg = decodeURIComponent(
+        unwrappedSearchParams.initialMessage
+      );
+      // Use append to add the initial message to the chat
+      append({
         role: "user",
-        content: decodeURIComponent(unwrappedSearchParams.initialMessage),
-        timestamp: new Date(),
-      };
-
-      setMessages([userMessage]);
-
-      // Simulate AI response after a short delay
-      setIsLoading(true);
-      setTimeout(() => {
-        const aiResponse: Message = {
-          id: "2",
-          role: "assistant",
-          content: generateMockAIResponse(userMessage.content),
-          timestamp: new Date(),
-        };
-        setMessages([userMessage, aiResponse]);
-        setIsLoading(false);
-      }, 1500);
+        content: initialMsg,
+      });
     }
-  }, [unwrappedSearchParams.initialMessage]);
+  }, [unwrappedSearchParams.initialMessage, append, messages.length]);
+
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }
+  }, [messages, isLoading]);
+
+  // Convert AI SDK messages to our local Message format for compatibility
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const convertedMessages: Message[] = messages.map((msg: any) => ({
+    id: msg.id,
+    role: msg.role as "user" | "assistant",
+    content: msg.content,
+    timestamp: new Date(), // AI SDK doesn't provide timestamps by default
+  }));
 
   const handleSendMessage = (content: string) => {
-    const userMessage: Message = {
-      id: Date.now().toString(),
+    // Use append to add user message and trigger AI response
+    append({
       role: "user",
       content,
-      timestamp: new Date(),
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setIsLoading(true);
-
-    // Simulate AI response
-    setTimeout(() => {
-      const aiResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: generateMockAIResponse(content),
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, aiResponse]);
-      setIsLoading(false);
-    }, 1500);
-  };
-
-  const generateMockAIResponse = (userInput: string): string => {
-    const responses = [
-      `Based on your query about "${userInput}", I can provide some insights about oceanographic data. Here's what I found:
-
-## Key Findings
-
-- **Temperature Range**: 18-26°C in the surface waters
-- **Salinity Levels**: 34.5-35.5 PSU 
-- **Data Points**: 1,247 ARGO float measurements
-
-### Analysis
-
-The data shows interesting patterns in the **Arabian Sea** region. Temperature gradients indicate strong seasonal thermoclines during monsoon periods.
-
-\`\`\`
-Location: 15.2°N, 68.4°E
-Depth: 0-200m
-Temperature: 24.3°C (surface)
-Salinity: 35.1 PSU
-\`\`\`
-
-Would you like me to generate a visualization of this data?`,
-
-      `Interesting question about "${userInput}"! Let me analyze the available ARGO float data:
-
-## Ocean Data Summary
-
-Your query relates to important oceanographic parameters. Here's what the data reveals:
-
-### Current Conditions
-- **Region**: Indian Ocean Basin
-- **Float Count**: 45 active instruments
-- **Last Update**: Today, 14:30 UTC
-
-The measurements show:
-1. **Thermal structure** varies significantly with depth
-2. **Salinity patterns** indicate monsoon influence  
-3. **Mixed layer depth** averages 65m in this season
-
-*Note: This analysis is based on real-time ARGO float network data.*`,
-
-      `Thank you for your question: "${userInput}". As an AI oceanographer, I can help analyze this data pattern.
-
-## Research Context
-
-Recent studies in **Marine Geophysical Research** indicate similar trends in this region. The data suggests:
-
-### Physical Oceanography
-- Temperature profiles show clear seasonal variation
-- Salinity distribution reflects precipitation patterns
-- Current velocity measurements indicate active circulation
-
-### Statistical Overview
-| Parameter | Mean | Range | Std Dev |
-|-----------|------|-------|---------|
-| Temperature (°C) | 23.4 | 18.2-27.8 | 2.1 |
-| Salinity (PSU) | 34.9 | 33.1-36.2 | 0.8 |
-| Depth (m) | 125 | 0-2000 | 245 |
-
-Would you like me to explore specific aspects of this data further?`,
-    ];
-
-    return responses[Math.floor(Math.random() * responses.length)];
+    });
   };
 
   return (
@@ -162,7 +93,7 @@ Would you like me to explore specific aspects of this data further?`,
         <div className="flex-1 overflow-y-auto py-6 scrollbar-hide">
           {/* Centered content wrapper */}
           <div className="max-w-4xl mx-auto px-4 space-y-6">
-            {messages.map((message) => (
+            {convertedMessages.map((message) => (
               <MessageBubble key={message.id} message={message} />
             ))}
 
@@ -176,12 +107,15 @@ Would you like me to explore specific aspects of this data further?`,
                       <div className="rounded-full bg-gray-400 h-2 w-2"></div>
                     </div>
                     <span className="text-sm text-gray-500">
-                      AI is thinking...
+                      FloatChat is thinking...
                     </span>
                   </div>
                 </div>
               </div>
             )}
+
+            {/* Scroll target */}
+            <div ref={messagesEndRef} />
           </div>
         </div>
 

@@ -1,24 +1,33 @@
-// Placeholder chat API route
-// This will be implemented in Phase 2 with actual AI integration
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { streamText } from "ai";
+import type { CoreMessage } from "ai";
 
-export async function POST(request: Request) {
-  try {
-    const { message } = await request.json();
+// Allow streaming responses up to 30 seconds
+export const maxDuration = 30;
 
-    // Mock response for now
-    return Response.json({
-      message: "Chat API endpoint - will be implemented in Phase 2",
-      received: message,
-    });
-  } catch (error) {
-    console.error("Chat API error:", error);
-    return Response.json({ error: "Invalid request" }, { status: 400 });
-  }
-}
+const google = createGoogleGenerativeAI({
+  apiKey: process.env.GEMINI_API_KEY!,
+});
 
-export async function GET() {
-  return Response.json({
-    status: "Chat API endpoint ready",
-    version: "1.0.0",
+export async function POST(req: Request) {
+  const { messages }: { messages: CoreMessage[] } = await req.json();
+
+  const result = streamText({
+    model: google("gemini-1.5-flash"),
+    system: `You are FloatChat, an expert AI oceanographer and data scientist specializing in ARGO float oceanographic data analysis. 
+
+    You help users explore and understand ocean data through natural conversation. You can discuss:
+    - Ocean temperature, salinity, and depth measurements
+    - ARGO float data and oceanographic research
+    - Marine science concepts and trends
+    - Climate patterns and ocean dynamics
+    - Data analysis and visualization concepts
+
+    Keep your responses conversational, informative, and accessible to both scientists and non-experts. When users ask about specific data queries or visualizations, acknowledge their request and explain what kind of analysis would be helpful, even though you don't yet have access to live data tools.
+
+    Be enthusiastic about ocean science and help users understand the fascinating world of oceanographic data!`,
+    messages,
   });
+
+  return result.toDataStreamResponse();
 }

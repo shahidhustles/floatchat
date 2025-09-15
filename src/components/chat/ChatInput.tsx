@@ -34,6 +34,15 @@ export default function ChatInput({
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Enter to send, Shift+Enter for new line
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+    // Shift+Enter will create a new line (default behavior)
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4">
       {/* Model Indicator */}
@@ -46,8 +55,9 @@ export default function ChatInput({
             <TextareaAutosize
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="Ask about ocean temperature trends, ARGO float data, salinity patterns ..."
-              className={`w-full bg-transparent text-gray-900 placeholder-gray-500 p-4 pr-12 resize-none border-0 outline-none max-h-32 ${
+              className={`w-full bg-transparent text-gray-900 placeholder-gray-600 p-4 pr-12 resize-none border-0 outline-none max-h-32 ${
                 isMainPage ? "min-h-[96px]" : "min-h-[32px]"
               }`}
               minRows={1}
@@ -69,9 +79,9 @@ export default function ChatInput({
         </div>
 
         {/* Bottom Helper Text */}
-        <div className="text-xs text-gray-500 mt-2 text-center">
+        <div className="text-xs text-slate-700 mt-2 text-center drop-shadow-sm">
           FloatChat can help analyze oceanographic data, visualize trends, and
-          provide research insights.
+          provide research insights. 
         </div>
       </form>
     </div>

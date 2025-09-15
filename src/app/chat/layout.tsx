@@ -47,8 +47,9 @@ import {
 import {
   ChatSessionProvider,
   useChatSessions,
-} from "@/lib/chat-session-context";
+} from "@/lib/convex-chat-context";
 import { useRouter, useParams } from "next/navigation";
+import Image from "next/image";
 
 // Navigation items for the sidebar
 const navItems = [
@@ -79,20 +80,27 @@ function ChatSessionMenu({ sessionId }: { sessionId: string }) {
   const { deleteSession } = useChatSessions();
   const router = useRouter();
 
-  const handleDelete = () => {
-    deleteSession(sessionId);
+  const handleDelete = async () => {
+    await deleteSession(sessionId);
     router.push("/chat");
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-6 w-6 p-0 hover:bg-blue-100 text-blue-600 hover:text-blue-800"
+        >
           <MoreHorizontal className="h-3 w-3" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={handleDelete} className="text-destructive">
+      <DropdownMenuContent align="end" className="border-blue-200 bg-white">
+        <DropdownMenuItem
+          onClick={handleDelete}
+          className="text-red-600 hover:bg-red-50 hover:text-red-700"
+        >
           <Trash2 className="h-4 w-4 mr-2" />
           Delete chat
         </DropdownMenuItem>
@@ -103,25 +111,33 @@ function ChatSessionMenu({ sessionId }: { sessionId: string }) {
 
 function ChatSidebar() {
   const { user } = useUser();
-  const { sessions, createNewSession } = useChatSessions();
+  const { sessions } = useChatSessions();
   const router = useRouter();
   const params = useParams();
 
   const handleNewChat = () => {
-    const newSession = createNewSession();
-    router.push(`/chat/${newSession.id}`);
+    // Redirect to main chat page instead of creating a new session
+    router.push("/chat");
   };
 
   const currentChatId = params?.chatId as string;
 
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader>
+    <Sidebar
+      collapsible="icon"
+      className="border-r border-blue-100 bg-gradient-to-b from-blue-50/50 to-cyan-50/30"
+    >
+      <SidebarHeader className="border-b border-blue-100/50">
         <div className="flex items-center gap-2 px-1 py-2 group-data-[collapsible=icon]:px-1 group-data-[collapsible=icon]:justify-center">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center px-2">
-            <MessageSquare className="h-4 w-4 text-white" />
-          </div>
-          <span className="font-semibold text-lg group-data-[collapsible=icon]:hidden">
+          <Image
+            src="/icons/logo.png"
+            alt="Logo"
+            width={24}
+            height={24}
+            className="h-12 w-12 object-contain"
+          />
+
+          <span className="font-semibold text-lg group-data-[collapsible=icon]:hidden text-blue-900">
             FloatChat
           </span>
         </div>
@@ -133,7 +149,7 @@ function ChatSidebar() {
           <SidebarGroupContent>
             <Button
               onClick={handleNewChat}
-              className="w-full justify-start gap-2 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-2"
+              className="w-full justify-start gap-2 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-2 bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 text-white shadow-md border-0"
               variant="default"
             >
               <Plus className="h-4 w-4" />
@@ -144,11 +160,13 @@ function ChatSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <Separator />
+        <Separator className="bg-blue-100" />
 
         {/* Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-blue-700 font-medium">
+            Navigation
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map((item) => (
@@ -156,8 +174,9 @@ function ChatSidebar() {
                   <SidebarMenuButton
                     asChild
                     isActive={item.href === "/chat" && !currentChatId}
+                    className="hover:bg-blue-100/50 data-[active=true]:bg-blue-200/60 data-[active=true]:text-blue-900"
                   >
-                    <Link href={item.href}>
+                    <Link href={item.href} className="text-blue-800">
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
                     </Link>
@@ -168,42 +187,51 @@ function ChatSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <Separator />
+        <Separator className="bg-blue-100" />
 
         {/* Recent Chats */}
         <SidebarGroup>
-          <SidebarGroupLabel className="flex items-center gap-2">
+          <SidebarGroupLabel className="flex items-center gap-2 text-blue-700 font-medium">
             <History className="h-4 w-4" />
             Recent Chats
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {sessions.map((session) => (
-                <SidebarMenuItem key={session.id}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={currentChatId === session.id}
-                  >
-                    <Link
-                      href={`/chat/${session.id}`}
-                      className="flex items-center gap-2 pr-8 relative p-2 group-data-[collapsible=icon]:hidden w-full"
+              {sessions?.map((session) => {
+                const isActive = Boolean(
+                  currentChatId &&
+                    session.chatId &&
+                    currentChatId === session.chatId
+                );
+
+                return (
+                  <SidebarMenuItem key={session._id}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      className="hover:bg-blue-100/50 data-[active=true]:bg-gradient-to-r data-[active=true]:from-blue-200/80 data-[active=true]:to-cyan-200/60 data-[active=true]:border-l-2 data-[active=true]:border-blue-500"
                     >
-                      <span className="font-medium text-sm truncate w-full text-gray-900 dark:text-gray-100">
-                        {session.title}
-                      </span>
-                      <div className="absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <ChatSessionMenu sessionId={session.id} />
-                      </div>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+                      <Link
+                        href={`/chat/${session.chatId}`}
+                        className="flex items-center gap-2 pr-8 relative p-2 group-data-[collapsible=icon]:hidden w-full"
+                      >
+                        <span className="font-medium text-sm truncate w-full text-blue-900 data-[active=true]:text-blue-950">
+                          {session.title}
+                        </span>
+                        <div className="absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <ChatSessionMenu sessionId={session.chatId} />
+                        </div>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              }) || []}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter>
+      <SidebarFooter className="border-t border-blue-100/50 bg-blue-50/30">
         <SidebarMenu>
           <SidebarMenuItem>
             <SignedIn>
@@ -216,10 +244,10 @@ function ChatSidebar() {
                   }}
                 />
                 <div className="flex flex-col min-w-0 flex-1 group-data-[collapsible=icon]:hidden">
-                  <span className="text-sm font-medium truncate">
+                  <span className="text-sm font-medium truncate text-blue-900">
                     {user?.firstName}
                   </span>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs text-blue-600">
                     {user?.emailAddresses[0]?.emailAddress}
                   </span>
                 </div>
@@ -228,12 +256,19 @@ function ChatSidebar() {
             <SignedOut>
               <div className="flex flex-col gap-2 p-2 group-data-[collapsible=icon]:hidden">
                 <SignInButton mode="modal">
-                  <Button variant="outline" size="sm" className="w-full">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-blue-200 text-blue-700 hover:bg-blue-50"
+                  >
                     Sign In
                   </Button>
                 </SignInButton>
                 <SignUpButton mode="modal">
-                  <Button size="sm" className="w-full">
+                  <Button
+                    size="sm"
+                    className="w-full bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 text-white"
+                  >
                     Sign Up
                   </Button>
                 </SignUpButton>
@@ -259,7 +294,7 @@ export default function ChatLayout({
           <ChatSidebar />
           <SidebarInset className="flex-1">
             <div className="absolute top-4 left-4 z-50">
-              <SidebarTrigger className="bg-white/80 hover:bg-white/90 backdrop-blur-sm shadow-md" />
+              <SidebarTrigger className="bg-blue-50/90 hover:bg-blue-100/90 backdrop-blur-sm shadow-md border border-blue-200/50 text-blue-700 hover:text-blue-900" />
             </div>
             <main className="h-full overflow-hidden">{children}</main>
           </SidebarInset>

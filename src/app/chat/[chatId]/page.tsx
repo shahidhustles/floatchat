@@ -22,17 +22,23 @@ interface ChatInstancePageProps {
 }
 
 export default function ChatInstancePage({
+  params,
   searchParams,
 }: ChatInstancePageProps) {
-  // Unwrap the searchParams promise
+  // Unwrap the promises
+  const unwrappedParams = use(params);
   const unwrappedSearchParams = use(searchParams);
+  const chatId = unwrappedParams.chatId;
 
   // Ref for scrolling to bottom
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Use the useChat hook from AI SDK
+  // Use the useChat hook from AI SDK with chatId
   const { messages, isLoading, append } = useChat({
     api: "/api/chat",
+    body: {
+      chatId: chatId, // Always pass the chatId from URL
+    },
   });
 
   // Handle initial message from search params

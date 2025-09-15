@@ -24,7 +24,7 @@ export default function ChatInput({
 
     if (isMainPage) {
       // Redirect to new chat instance with the message
-      const chatId = `chat-${Date.now()}`;
+      const chatId = crypto.randomUUID();
       const encodedMessage = encodeURIComponent(message);
       router.push(`/chat/${chatId}?initialMessage=${encodedMessage}`);
     } else if (onSendMessage) {

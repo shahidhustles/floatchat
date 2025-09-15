@@ -77,18 +77,9 @@ export default function ChatInstancePage({
   };
 
   return (
-    <div className="relative min-h-screen bg-white overflow-hidden">
-      {/* Top Gradient Background - Same as main chat page */}
-      <div
-        className="absolute top-0 left-0 w-full h-[520px] z-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(180deg, #1e40af 0%, #0ea5e9 30%, #fff 100%)",
-        }}
-      />
-
+    <div className="h-full flex flex-col bg-white">
       {/* Main Chat Container */}
-      <div className="relative z-10 flex flex-col h-screen">
+      <div className="flex flex-col h-full">
         {/* Messages Container - Full width scrollable area */}
         <div className="flex-1 overflow-y-auto py-6 scrollbar-hide">
           {/* Centered content wrapper */}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { convexClient, ConvexProvider } from "@/lib/convex-client";
+import { convexClient, ConvexProvider } from "@/lib/convex/convex-client";
 import "./globals.css";
 
 const inter = Inter({

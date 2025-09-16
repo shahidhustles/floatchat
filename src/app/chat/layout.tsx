@@ -47,7 +47,7 @@ import {
 import {
   ChatSessionProvider,
   useChatSessions,
-} from "@/lib/convex-chat-context";
+} from "@/lib/convex/convex-chat-context";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 
@@ -76,6 +76,7 @@ const navItems = [
   },
 ];
 
+//TODO : add loading state when teh chat session are loading
 function ChatSessionMenu({ sessionId }: { sessionId: string }) {
   const { deleteSession } = useChatSessions();
   const router = useRouter();

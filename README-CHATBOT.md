@@ -518,19 +518,23 @@ export async function POST(req: Request) {
 
 **Deliverable**: Persistent chat history across sessions
 
-### **Phase 5: Tool Calling Foundation (5-6 hours)**
+### **Phase 5: Tool Calling Foundation + RAG Implementation (7-8 hours)**
 
-**Priority**: Basic data query capabilities
+**Priority**: Basic data query capabilities with context-aware responses
 
 1. ⏳ Supabase PostgreSQL setup and configuration
-2. ⏳ Drizzle ORM installation and schema design
-3. ⏳ Mock ARGO float data insertion (sample dataset)
-4. ⏳ Simple query tool implementation
-5. ⏳ Tool call UI components (loading, results display)
-6. ⏳ Basic natural language to SQL conversion
-7. ⏳ Error handling for failed tool calls
+2. ⏳ pgvector extension installation and vector table setup
+3. ⏳ Drizzle ORM installation and schema design (float data + embeddings)
+4. ⏳ Mock ARGO float data insertion (sample dataset)
+5. ⏳ Simple query tool implementation
+6. ⏳ Embedding generation and storage system
+7. ⏳ Vector similarity search implementation
+8. ⏳ Context retrieval tool for RAG-enhanced responses
+9. ⏳ Tool call UI components (loading, results display, context citations)
+10. ⏳ Basic natural language to SQL conversion
+11. ⏳ Error handling for failed tool calls and vector operations
 
-**Deliverable**: Chatbot can answer simple data queries with real responses
+**Deliverable**: Chatbot can answer simple data queries with real responses and provide context-aware answers using RAG
 
 ### **Phase 6: Data Visualization (4-5 hours)**
 

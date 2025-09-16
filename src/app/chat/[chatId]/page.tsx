@@ -5,11 +5,19 @@ import ChatInput from "@/components/chat/ChatInput";
 import MessageBubble from "@/components/chat/MessageBubble";
 import { useChat } from "@ai-sdk/react";
 
+interface ToolInvocation {
+  toolCallId: string;
+  toolName: string;
+  args: Record<string, unknown>;
+  result?: unknown;
+}
+
 interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
+  toolInvocations?: ToolInvocation[]; // Add support for tool invocations
 }
 
 interface ChatInstancePageProps {
@@ -35,6 +43,7 @@ export default function ChatInstancePage({
 
   // Use the useChat hook from AI SDK with chatId
   const { messages, isLoading, append } = useChat({
+    maxSteps: 12,
     api: "/api/chat",
     body: {
       chatId: chatId, // Always pass the chatId from URL
@@ -72,6 +81,7 @@ export default function ChatInstancePage({
     role: msg.role as "user" | "assistant",
     content: msg.content,
     timestamp: new Date(), // AI SDK doesn't provide timestamps by default
+    toolInvocations: msg.toolInvocations, // Pass through tool invocations from AI SDK
   }));
 
   const handleSendMessage = (content: string) => {
@@ -94,22 +104,25 @@ export default function ChatInstancePage({
               <MessageBubble key={message.id} message={message} />
             ))}
 
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-lg p-4 max-w-2xl">
-                  <div className="flex items-center space-x-2">
-                    <div className="animate-pulse flex space-x-1">
-                      <div className="rounded-full bg-gray-400 h-2 w-2"></div>
-                      <div className="rounded-full bg-gray-400 h-2 w-2"></div>
-                      <div className="rounded-full bg-gray-400 h-2 w-2"></div>
+            {isLoading &&
+              convertedMessages.length > 0 &&
+              convertedMessages[convertedMessages.length - 1]?.role ===
+                "user" && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 rounded-lg p-4 max-w-2xl">
+                    <div className="flex items-center space-x-2">
+                      <div className="animate-pulse flex space-x-1">
+                        <div className="rounded-full bg-gray-400 h-2 w-2"></div>
+                        <div className="rounded-full bg-gray-400 h-2 w-2"></div>
+                        <div className="rounded-full bg-gray-400 h-2 w-2"></div>
+                      </div>
+                      <span className="text-sm text-gray-500">
+                        FloatChat is thinking...
+                      </span>
                     </div>
-                    <span className="text-sm text-gray-500">
-                      FloatChat is thinking...
-                    </span>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
             {/* Scroll target */}
             <div ref={messagesEndRef} />

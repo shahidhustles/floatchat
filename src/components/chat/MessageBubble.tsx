@@ -5,13 +5,21 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { User, Bot } from "lucide-react";
+import { User, Bot, Settings } from "lucide-react";
+
+interface ToolInvocation {
+  toolCallId: string;
+  toolName: string;
+  args: Record<string, unknown>;
+  result?: unknown;
+}
 
 interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
+  toolInvocations?: ToolInvocation[];
 }
 
 interface MessageBubbleProps {
@@ -38,9 +46,36 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
           isUser ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-900"
         }`}
       >
+        {/* Tool Invocations Display */}
+        {!isUser &&
+          message.toolInvocations &&
+          message.toolInvocations.length > 0 && (
+            <div className="mb-3 space-y-2">
+              {message.toolInvocations.map((toolInvocation, index) => (
+                <div
+                  key={index}
+                  className="bg-blue-50 border border-blue-200 rounded-md p-3 text-sm"
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <Settings className="w-4 h-4 text-blue-600" />
+                    <span className="font-medium text-blue-800">
+                      {toolInvocation.toolName}
+                    </span>
+                  </div>
+                  <span className="text-blue-700 italic">
+                    {toolInvocation.toolName === "getContextualInformation"
+                      ? `Searching knowledge base for: "${toolInvocation.args.question}"`
+                      : `Calling ${toolInvocation.toolName}...`}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+
+        {/* Regular Message Content */}
         {isUser ? (
           <p className="whitespace-pre-wrap">{message.content}</p>
-        ) : (
+        ) : message.content.length > 0 ? (
           <div className="prose prose-sm max-w-none">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
@@ -133,7 +168,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
               {message.content}
             </ReactMarkdown>
           </div>
-        )}
+        ) : null}
 
         <div className="mt-2 text-xs opacity-70">
           {message.timestamp.toLocaleTimeString([], {

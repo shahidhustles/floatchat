@@ -1,15 +1,13 @@
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { generateText, streamText, tool } from "ai";
+import { generateText, streamText } from "ai";
 import type { CoreMessage } from "ai";
 import { api } from "../../../../convex/_generated/api";
 import { currentUser } from "@clerk/nextjs/server";
 import { nanoid } from "nanoid";
 import { convex } from "@/lib/convex/convex";
-import z from "zod";
 import { findRelevantContent } from "@/lib/ai/embedding";
 
-// Allow streaming responses up to 30 seconds
-export const maxDuration = 30;
+
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GEMINI_API_KEY!,
@@ -52,60 +50,69 @@ export async function POST(req: Request) {
     }
   }
 
-  console.log("🔧 [API] Setting up streamText with tools");
+  console.log("🔧 [API] Implementing manual RAG approach");
+
+  // Get the user's last message for searching embeddings
+  const lastMessage = messages[messages.length - 1];
+  const userQuery =
+    typeof lastMessage.content === "string"
+      ? lastMessage.content
+      : "search query";
+
+  console.log("🔍 [RAG] Searching for relevant content for:", userQuery);
+
+  // Search for relevant content using embeddings
+  let relevantContext = "";
+  try {
+    const results = await findRelevantContent(userQuery);
+    console.log("✅ [RAG] Found", results?.length || 0, "relevant documents");
+
+    if (results && results.length > 0) {
+      relevantContext = results.map((r) => `- ${r.name}`).join("\n");
+      console.log(
+        "📄 [RAG] Context length:",
+        relevantContext.length,
+        "characters"
+      );
+    }
+  } catch (error) {
+    console.error("❌ [RAG] Error searching embeddings:", error);
+  }
+
+  // Enhanced system prompt with context injection
+  const systemPrompt = `You are FloatChat, an expert AI oceanographer and marine data specialist.
+
+${
+  relevantContext
+    ? `RELEVANT RESEARCH CONTEXT:
+${relevantContext}
+
+Based on the above research context and your expertise, provide a comprehensive and accurate response.`
+    : ""
+}
+
+You have expertise in:
+- Ocean data analysis and ARGO float measurements
+- Oceanographic research and marine science concepts
+- Climate policies and environmental regulations
+- Marine science developments and research findings
+
+Guidelines:
+- Provide accurate, helpful information about oceanography and marine science
+- If you have relevant context from research documents, incorporate that information into your response
+- Keep responses accessible to both scientists and policymakers
+- Be enthusiastic about ocean science and democratizing data access
+- If no relevant information is found in the knowledge base, rely on your general expertise
+
+Your mission: Bridge the gap between complex oceanographic data and practical insights for scientists, policymakers, and researchers.`;
 
   const result = streamText({
-    model: google("gemini-2.5-flash"),
-
-    system: `You are FloatChat, an expert AI oceanographer and marine data specialist.
-
-    You have TWO key capabilities:
-
-    1. **Ocean Data Analysis**: Answer questions about ARGO float data, oceanographic measurements, and marine science concepts. For statistical queries about ocean data (temperature, salinity, depth profiles), you will eventually have access to live oceanographic databases.
-
-    2. **Contextual Knowledge**: Access research papers, policies, news, and documentation related to oceanography and climate science through your knowledge base. Use the getContextualInformation tool to search for relevant contextual information when users ask about:
-       - Ocean research findings and publications
-       - Climate policies and environmental regulations  
-       - News about marine science developments
-       - Technical documentation and methodologies
-       - Historical context and background information
-
-    Guidelines:
-    - For data queries ("show me temperature trends"), explain the analysis approach
-    - For contextual questions ("what are recent climate policies?"), use getContextualInformation tool
-    - Keep responses accessible to both scientists and policymakers
-    - Be enthusiastic about ocean science and democratizing data access
-    - Always check your knowledge base before answering contextual questions
-    - If no relevant contextual information is found, acknowledge the limitation
-
-    Your mission: Bridge the gap between complex oceanographic data and practical insights for scientists, policymakers, and researchers.`,
+    model: google("gemini-2.5-pro"),
+    system: systemPrompt,
     messages,
 
-    tools: {
-      //TODO : the AI can use this multiple times to get all the related content in the future
-      getContextualInformation: tool({
-        description: `get information from your knowledge base to answer questions about ocean research, policies, news, and documentation.`,
-        parameters: z.object({
-          question: z.string().describe("the users question"),
-        }),
-        execute: async ({ question }) => {
-          console.log(
-            "🔍 [TOOL] getContextualInformation called with question:",
-            question
-          );
-          try {
-            const result = await findRelevantContent(question);
-            console.log("✅ [TOOL] findRelevantContent returned:", result);
-            return result;
-          } catch (error) {
-            console.error("❌ [TOOL] Error in findRelevantContent:", error);
-            throw error;
-          }
-        },
-      }),
-    },
-
     onFinish: async (result) => {
+      // Save the assistant message to convex
       const assistantMessage = {
         id: nanoid(),
         role: "assistant" as const,
@@ -113,6 +120,7 @@ export async function POST(req: Request) {
         createdAt: Date.now(),
       };
 
+      // Handle chat creation/update
       if (isFirstMessage) {
         // Generate a 3-word title for the new chat
         const userMessage = messages[messages.length - 1];
@@ -122,7 +130,7 @@ export async function POST(req: Request) {
           const { text } = await generateText({
             model: google("gemini-2.0-flash"),
             system: `Generate a 3-word title for this chat conversation. Return only 3 words, no punctuation.`,
-            prompt: `User message: "${userMessage.content}"\nAI response: "${result.text}"`,
+            prompt: `User message: "${typeof userMessage.content === "string" ? userMessage.content : "user message"}"\nAI response: "${result.text}"`,
           });
 
           // Ensure we have exactly 3 words
@@ -142,7 +150,10 @@ export async function POST(req: Request) {
             {
               id: nanoid(),
               role: userMessage.role as "user" | "assistant" | "system",
-              content: userMessage.content as string,
+              content:
+                typeof userMessage.content === "string"
+                  ? userMessage.content
+                  : "user message",
               createdAt: Date.now(),
             },
             assistantMessage,

@@ -1,5 +1,38 @@
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+
+// Get a chat by chatId
+export const getChat = query({
+  args: {
+    id: v.string(), // Frontend chatId
+  },
+  handler: async (ctx, args) => {
+    const chat = await ctx.db
+      .query("chats")
+      .withIndex("by_chatId", (q) => q.eq("chatId", args.id))
+      .first();
+    return chat;
+  },
+});
+
+// Get messages for a specific chat
+export const getMessagesForChat = query({
+  args: {
+    chatId: v.string(), // Frontend chatId
+  },
+  handler: async (ctx, args) => {
+    const chat = await ctx.db
+      .query("chats")
+      .withIndex("by_chatId", (q) => q.eq("chatId", args.chatId))
+      .first();
+
+    if (!chat) {
+      return [];
+    }
+
+    return chat.messages || [];
+  },
+});
 
 // Create a new chat
 export const createChat = mutation({

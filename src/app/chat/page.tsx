@@ -3,8 +3,19 @@
 import React from "react";
 import Header from "@/components/chat/Header";
 import ChatInput from "@/components/chat/ChatInput";
+import { useRouter } from "next/navigation";
+import { nanoid } from "nanoid";
 
 export default function ChatPage() {
+  const router = useRouter();
+
+  const handleSendMessage = (message: string) => {
+    // Generate new chat ID and redirect with initial message
+    const chatId = nanoid();
+    const encodedMessage = encodeURIComponent(message);
+    router.push(`/chat/${chatId}?initialMessage=${encodedMessage}`);
+  };
+
   return (
     <div className="relative h-full bg-white overflow-hidden">
       {/* Top Gradient Background */}
@@ -19,7 +30,7 @@ export default function ChatPage() {
 
         {/* Spacer to center the input */}
         <div className="flex-1 flex items-start justify-center mt-10">
-          <ChatInput isMainPage={true} />
+          <ChatInput onSendMessage={handleSendMessage} isMainPage={true} />
         </div>
       </div>
     </div>

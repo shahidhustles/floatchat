@@ -117,8 +117,8 @@ function ChatSidebar() {
   const params = useParams();
 
   const handleNewChat = () => {
-    // Redirect to main chat page instead of creating a new session
-    router.push("/chat");
+    //TODO : change this when you have implemented the first message functionality.
+    router.push(`/chat`);
   };
 
   const currentChatId = params?.chatId as string;

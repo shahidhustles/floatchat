@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import TextareaAutosize from "react-textarea-autosize";
-import { useRouter } from "next/navigation";
 
 interface ChatInputProps {
   onSendMessage?: (message: string) => void;
@@ -16,22 +15,14 @@ export default function ChatInput({
   isMainPage = false,
 }: ChatInputProps) {
   const [message, setMessage] = useState("");
-  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!message.trim()) return;
+    if (!message.trim() || !onSendMessage) return;
 
-    if (isMainPage) {
-      // Redirect to new chat instance with the message
-      const chatId = crypto.randomUUID();
-      const encodedMessage = encodeURIComponent(message);
-      router.push(`/chat/${chatId}?initialMessage=${encodedMessage}`);
-    } else if (onSendMessage) {
-      // Send message to existing chat
-      onSendMessage(message);
-      setMessage("");
-    }
+    // Always use onSendMessage now - main page handles the flow
+    onSendMessage(message);
+    setMessage("");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {

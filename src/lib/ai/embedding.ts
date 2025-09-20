@@ -26,63 +26,27 @@ export const generateEmbeddings = async (
 
 //for retrieval query embedding
 export const generateEmbedding = async (content: string) => {
-  console.log(
-    "🚀 [EMBEDDING] generateEmbedding called with content length:",
-    content.length
-  );
-  console.log(
-    "📝 [EMBEDDING] Content preview:",
-    content.substring(0, 200) + (content.length > 200 ? "..." : "")
-  );
-
   try {
     const { embedding } = await embed({
       model: embeddingModel, // Use the same model as for storage
       value: content,
     });
 
-    console.log(
-      "✅ [EMBEDDING] Embedding generated successfully, dimensions:",
-      embedding.length
-    );
     return embedding;
   } catch (error) {
-    console.error("❌ [EMBEDDING] Error generating embedding:", error);
     throw error;
   }
 };
 
 //for finding the related vectors.
 export const findRelevantContent = async (userQuery: string) => {
-  console.log(
-    "🔍 [EMBEDDING] findRelevantContent called with query:",
-    userQuery
-  );
-
   try {
-    console.log("📝 [EMBEDDING] Generating embedding for query...");
     const userQueryEmbedded = await generateEmbedding(userQuery);
-    console.log(
-      "✅ [EMBEDDING] Query embedding generated, length:",
-      userQueryEmbedded.length
-    );
 
     const similarity = sql<number>`1 - (${cosineDistance(
       embeddings.embedding,
       userQueryEmbedded
     )})`;
-
-    console.log("🔍 [EMBEDDING] Searching database for similar content...");
-
-    // First, let's see what's in the database
-    const allEmbeddings = await db
-      .select({ content: embeddings.content })
-      .from(embeddings)
-      .limit(5);
-    console.log(
-      "📚 [EMBEDDING] Sample content in database:",
-      allEmbeddings.map((e) => e.content.substring(0, 100) + "...")
-    );
 
     const similarGuides = await db
       .select({ name: embeddings.content, similarity })
@@ -91,22 +55,8 @@ export const findRelevantContent = async (userQuery: string) => {
       .orderBy((t) => desc(t.similarity))
       .limit(10);
 
-    console.log(
-      "📊 [EMBEDDING] Found",
-      similarGuides.length,
-      "similar results"
-    );
-    console.log(
-      "📋 [EMBEDDING] Results:",
-      similarGuides.map((r) => ({
-        similarity: r.similarity,
-        preview: r.name.substring(0, 100) + "...",
-      }))
-    );
-
     return similarGuides;
   } catch (error) {
-    console.error("❌ [EMBEDDING] Error in findRelevantContent:", error);
     throw error;
   }
 };

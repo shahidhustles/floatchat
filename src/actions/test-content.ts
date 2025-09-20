@@ -16,11 +16,10 @@ export async function clearAllData() {
       success: true,
       message: "All data cleared successfully",
     };
-  } catch (error) {
-    console.error("Error clearing data:", error);
+  } catch {
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred",
+      error: "Unknown error occurred",
     };
   }
 }
@@ -53,11 +52,10 @@ export async function addTestContent(content: string) {
       message: `Successfully added content and generated ${embeddings_data.length} embeddings`,
       resourceId: resource.id,
     };
-  } catch (error) {
-    console.error("Error adding test content:", error);
+  } catch {
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred",
+      error: "Unknown error occurred",
     };
   }
 }
@@ -74,8 +72,7 @@ export async function getAllResources() {
       .orderBy(resources.createdAt);
 
     return { success: true, resources: allResources };
-  } catch (error) {
-    console.error("Error fetching resources:", error);
+  } catch {
     return { success: false, error: "Failed to fetch resources" };
   }
 }

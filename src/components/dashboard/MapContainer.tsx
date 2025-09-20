@@ -73,8 +73,8 @@ export default function MapContainer({ onMapLoad }: MapContainerProps) {
         }
       });
 
-      map.current.on("error", (e) => {
-        console.error("Mapbox error:", e);
+      map.current.on("error", () => {
+        // Mapbox error occurred
       });
     }
 
@@ -111,10 +111,8 @@ export default function MapContainer({ onMapLoad }: MapContainerProps) {
           loadIcon("/icons/argo-float-inactive.svg", "float-inactive"),
           loadIcon("/icons/argo-float.svg", "float-general"),
         ]);
-
-        console.log("Float icons loaded successfully");
-      } catch (error) {
-        console.error("Failed to load float icons:", error);
+      } catch {
+        // Failed to load float icons
       }
     };
 
@@ -280,8 +278,8 @@ export default function MapContainer({ onMapLoad }: MapContainerProps) {
                           <h3 class="${
                             isMobile ? "text-lg" : "text-xl"
                           } font-bold text-gray-900">${formatFloatId(
-                      properties.id
-                    )}</h3>
+                            properties.id
+                          )}</h3>
                           <span class="text-lg">${getStatusIcon(
                             properties.status
                           )}</span>
@@ -293,8 +291,8 @@ export default function MapContainer({ onMapLoad }: MapContainerProps) {
                         </p>
                         <p class="text-xs text-gray-500">
                           Deployed by: ${properties.deployedBy || "INCOIS"} (${
-                      properties.deploymentYear || "2023"
-                    })
+                            properties.deploymentYear || "2023"
+                          })
                         </p>
                         <p class="text-xs text-gray-400">
                           Last update: ${formatLastTransmission(
@@ -310,8 +308,8 @@ export default function MapContainer({ onMapLoad }: MapContainerProps) {
                           <div class="${
                             isMobile ? "text-xl" : "text-2xl"
                           } font-bold text-red-700">${formatTemperature(
-                      properties.temperature
-                    )}</div>
+                            properties.temperature
+                          )}</div>
                           <div class="text-xs font-medium text-red-600">Sea Temperature</div>
                         </div>
                         <div class="bg-blue-50 border border-blue-200 rounded-lg ${
@@ -320,8 +318,8 @@ export default function MapContainer({ onMapLoad }: MapContainerProps) {
                           <div class="${
                             isMobile ? "text-xl" : "text-2xl"
                           } font-bold text-blue-700">${
-                      properties.salinity
-                    }</div>
+                            properties.salinity
+                          }</div>
                           <div class="text-xs font-medium text-blue-600">Salinity (PSU)</div>
                         </div>
                       </div>
@@ -332,8 +330,8 @@ export default function MapContainer({ onMapLoad }: MapContainerProps) {
                         <div class="${
                           isMobile ? "text-xl" : "text-2xl"
                         } font-bold text-indigo-700">${formatDepth(
-                      properties.depth
-                    )}</div>
+                          properties.depth
+                        )}</div>
                         <div class="text-xs font-medium text-indigo-600">Current Depth</div>
                       </div>
                       
@@ -346,8 +344,8 @@ export default function MapContainer({ onMapLoad }: MapContainerProps) {
                             properties.status === "active"
                               ? "bg-green-100 text-green-800 border-green-300"
                               : properties.status === "inactive"
-                              ? "bg-red-100 text-red-800 border-red-300"
-                              : "bg-yellow-100 text-yellow-800 border-yellow-300"
+                                ? "bg-red-100 text-red-800 border-red-300"
+                                : "bg-yellow-100 text-yellow-800 border-yellow-300"
                           }">
                             ${properties.status.toUpperCase()}
                           </span>
@@ -382,13 +380,9 @@ export default function MapContainer({ onMapLoad }: MapContainerProps) {
               map.current.getCanvas().style.cursor = "";
             }
           });
-
-          console.log(
-            `Loaded ${floatData.features.length} India-deployed ARGO floats`
-          );
         }
-      } catch (error) {
-        console.error("Failed to load float data:", error);
+      } catch {
+        // Failed to load float data
       }
     };
 

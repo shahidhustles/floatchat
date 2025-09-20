@@ -19,26 +19,13 @@ const google = createGoogleGenerativeAI({
 });
 
 export async function POST(req: Request) {
-  console.log("🚀 [API] POST /api/chat called");
-
   const user = await currentUser();
   if (!user?.id) {
-    console.log("❌ [API] Unauthorized user");
     return new Response("Unauthorized", { status: 401 });
   }
 
-  console.log("✅ [API] User authenticated:", user.id);
-
   const { messages, chatId }: { messages: UIMessage[]; chatId?: string } =
     await req.json();
-
-  console.log("📨 [API] Received messages:", messages.length);
-  console.log(
-    "💬 [API] Last message:",
-    messages[messages.length - 1]?.parts
-      ?.map((p) => (p.type === "text" ? p.text : ""))
-      .join(" ")
-  );
 
   // Enhanced system prompt for FloatChat
   const systemPrompt = `You are FloatChat, an expert AI oceanographer and marine data specialist.
@@ -69,13 +56,8 @@ Your mission: Bridge the gap between complex oceanographic data and practical in
     try {
       existingMessages =
         (await convex.query(api.chats.getMessagesForChat, { chatId })) || [];
-      console.log(
-        `📚 [API] Found ${existingMessages.length} existing messages for chat ${chatId}`
-      );
     } catch {
-      console.log(
-        `📚 [API] No existing messages found for chat ${chatId}, starting new chat`
-      );
+      // No existing messages found, starting new chat
     }
   }
 
@@ -90,10 +72,6 @@ Your mission: Bridge the gap between complex oceanographic data and practical in
   const existingIds = new Set(existingUIMessages.map((msg) => msg.id));
   const newMessages = messages.filter((msg) => !existingIds.has(msg.id));
   const allMessages = [...existingUIMessages, ...newMessages];
-
-  console.log(
-    `💬 [API] Processing ${allMessages.length} total messages (${existingUIMessages.length} existing + ${newMessages.length} new)`
-  );
 
   const result = streamText({
     model: google("gemini-2.5-flash"),
@@ -111,15 +89,12 @@ Your mission: Bridge the gap between complex oceanographic data and practical in
             .describe("The user's question or topic to search for"),
         }),
         execute: async ({ question }) => {
-          console.log("🔍 [TOOL] Searching knowledge base for:", question);
           return await findRelevantContent(question);
         },
       }),
     },
 
     onFinish: async (result) => {
-      console.log("🏁 [API] Generation finished, saving to Convex");
-
       // Determine if it's the first message for this chat
       const isFirstMessage = existingMessages.length === 0;
 
@@ -156,8 +131,7 @@ Generate only the title, no quotes or additional text. Keep it under 25 characte
 
           generatedTitle =
             titleGeneration.text.trim().substring(0, 25) || "Ocean Data Chat";
-        } catch (error) {
-          console.error("Failed to generate title:", error);
+        } catch {
           // Fallback to simple word extraction if AI generation fails
           const userContent =
             userMessage.parts

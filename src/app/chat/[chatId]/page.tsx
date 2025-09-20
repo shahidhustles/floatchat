@@ -54,34 +54,19 @@ export default function ChatInstancePage({
 
   // Load existing messages into the chat when they're available
   useEffect(() => {
-    console.log(
-      "📨 existingMessages:",
-      existingMessages,
-      "loaded:",
-      existingMessagesLoaded.current
-    );
-
     if (existingMessages !== undefined && !existingMessagesLoaded.current) {
-      console.log("💾 Processing existing messages...");
-
       // existingMessages is an array (empty or with messages) or null
       if (existingMessages && existingMessages.length > 0) {
-        console.log("📚 Found", existingMessages.length, "existing messages");
         const convertedExistingMessages = existingMessages.map((msg) => ({
           id: msg.id,
           role: msg.role as "user" | "assistant",
           parts: [{ type: "text" as const, text: msg.content }],
         }));
         setMessages(convertedExistingMessages);
-      } else {
-        console.log("📭 No existing messages found (new chat)");
       }
 
       // Mark as loaded regardless of whether we found messages or not
       existingMessagesLoaded.current = true;
-      console.log(
-        "✅ Existing messages loaded, can proceed with initial message"
-      );
     }
   }, [existingMessages, setMessages]);
 
@@ -93,10 +78,6 @@ export default function ChatInstancePage({
       !initialMessageSent.current &&
       existingMessagesLoaded.current // Only proceed after we've loaded existing messages
     ) {
-      console.log(
-        "🚀 Sending initial message:",
-        unwrappedSearchParams.initialMessage
-      );
       const initialMsg = decodeURIComponent(
         unwrappedSearchParams.initialMessage
       );
@@ -114,7 +95,6 @@ export default function ChatInstancePage({
       messages.length === 0 &&
       existingMessages !== undefined // Convex query has completed (empty array for new chat)
     ) {
-      console.log("🚀 New chat detected, sending initial message immediately");
       const initialMsg = decodeURIComponent(
         unwrappedSearchParams.initialMessage
       );

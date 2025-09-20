@@ -63,8 +63,7 @@ export function ChatSessionProvider({
       });
       setCurrentSessionId(chatId);
       return chatId;
-    } catch (error) {
-      console.error("Failed to create chat:", error);
+    } catch {
       return null;
     }
   };
@@ -75,8 +74,8 @@ export function ChatSessionProvider({
   ): Promise<void> => {
     try {
       await updateChatTitleMutation({ chatId: chatId, title });
-    } catch (error) {
-      console.error("Failed to update chat:", error);
+    } catch {
+      // Failed to update chat
     }
   };
 
@@ -86,8 +85,8 @@ export function ChatSessionProvider({
       if (currentSessionId === chatId) {
         setCurrentSessionId(null);
       }
-    } catch (error) {
-      console.error("Failed to delete chat:", error);
+    } catch {
+      // Failed to delete chat
     }
   };
 

@@ -4,10 +4,8 @@ import React from "react";
 import MapContainer from "../../components/dashboard/MapContainer";
 
 export default function DashboardPage() {
-  const handleMapLoad = (map: mapboxgl.Map) => {
-    console.log("3D Indian Ocean map loaded successfully!");
-    console.log("Map center:", map.getCenter());
-    console.log("Map zoom:", map.getZoom());
+  const handleMapLoad = () => {
+    // Map loaded successfully
   };
 
   return (

@@ -48,9 +48,6 @@ export const MAP_CONTROLS = {
 export const getMapboxToken = () => {
   const token = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
   if (!token) {
-    console.warn(
-      "Mapbox token not found. Add NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN to .env.local"
-    );
     return "pk.demo_token"; // Fallback for development
   }
   return token;

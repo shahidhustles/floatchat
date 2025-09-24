@@ -9,7 +9,7 @@ import {
 import { ChatSessionProvider } from "@/lib/convex/convex-chat-context";
 import { SharedSidebar } from "@/components/layout/shared-sidebar";
 
-export default function ChatLayout({
+export default function UploadLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -18,7 +18,7 @@ export default function ChatLayout({
     <ChatSessionProvider>
       <SidebarProvider>
         <div className="flex h-screen w-full">
-          <SharedSidebar showChatSessions={true} />
+          <SharedSidebar showChatSessions={false} />
           <SidebarInset className="flex-1">
             <div className="absolute top-4 left-4 z-50">
               <SidebarTrigger className="bg-blue-50/90 hover:bg-blue-100/90 backdrop-blur-sm shadow-md border border-blue-200/50 text-blue-700 hover:text-blue-900" />

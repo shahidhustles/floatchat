@@ -4,59 +4,19 @@ import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { FileIcon, CalendarIcon, DatabaseIcon } from "lucide-react";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 
 interface UploadedFile {
   id: string;
   name: string;
   size: number;
   uploadDate: string;
-  status: "processing" | "completed" | "failed";
+  status: "processing" | "completed" | "failed" | "uploaded";
   recordCount?: number;
 }
 
-// Hardcoded data for now
-const hardcodedFiles: UploadedFile[] = [
-  {
-    id: "1",
-    name: "ocean_data_2024_01.nc",
-    size: 25.6,
-    uploadDate: "2024-09-24",
-    status: "completed",
-    recordCount: 1250,
-  },
-  {
-    id: "2",
-    name: "temperature_profiles_pacific.nc",
-    size: 48.3,
-    uploadDate: "2024-09-23",
-    status: "completed",
-    recordCount: 2890,
-  },
-  {
-    id: "3",
-    name: "salinity_measurements_Q3.nc",
-    size: 32.1,
-    uploadDate: "2024-09-22",
-    status: "processing",
-    recordCount: undefined,
-  },
-  {
-    id: "4",
-    name: "float_trajectory_data.nc",
-    size: 15.8,
-    uploadDate: "2024-09-21",
-    status: "completed",
-    recordCount: 876,
-  },
-  {
-    id: "5",
-    name: "deep_ocean_currents.nc",
-    size: 67.2,
-    uploadDate: "2024-09-20",
-    status: "failed",
-    recordCount: undefined,
-  },
-];
+// No longer using hardcoded data - now using Convex
 
 const getStatusBadge = (status: UploadedFile["status"]) => {
   switch (status) {
@@ -78,6 +38,15 @@ const getStatusBadge = (status: UploadedFile["status"]) => {
           Processing
         </Badge>
       );
+    case "uploaded":
+      return (
+        <Badge
+          variant="secondary"
+          className="bg-blue-100 text-blue-800 hover:bg-blue-100"
+        >
+          Uploaded
+        </Badge>
+      );
     case "failed":
       return (
         <Badge
@@ -93,6 +62,20 @@ const getStatusBadge = (status: UploadedFile["status"]) => {
 };
 
 export const UploadedFilesList = () => {
+  const files = useQuery(api.files.getUserFiles) || [];
+
+  const formatFileSize = (bytes: number) => {
+    return (bytes / (1024 * 1024)).toFixed(1);
+  };
+
+  const formatDate = (timestamp: number) => {
+    return new Date(timestamp).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  };
+
   return (
     <div className="h-full flex flex-col">
       <div className="mb-6">
@@ -106,9 +89,9 @@ export const UploadedFilesList = () => {
 
       <div className="flex-1 overflow-y-auto">
         <div className="space-y-4">
-          {hardcodedFiles.map((file, index) => (
+          {files.map((file, index) => (
             <motion.div
-              key={file.id}
+              key={file._id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
@@ -118,7 +101,8 @@ export const UploadedFilesList = () => {
                   "hover:shadow-lg transition-shadow duration-200",
                   file.status === "processing" && "border-yellow-200",
                   file.status === "failed" && "border-red-200",
-                  file.status === "completed" && "border-green-200"
+                  file.status === "completed" && "border-green-200",
+                  file.status === "uploaded" && "border-blue-200"
                 )}
               >
                 <CardHeader className="pb-3">
@@ -129,10 +113,10 @@ export const UploadedFilesList = () => {
                       </div>
                       <div>
                         <CardTitle className="text-lg font-semibold text-gray-900 truncate max-w-xs">
-                          {file.name}
+                          {file.filename}
                         </CardTitle>
                         <p className="text-sm text-gray-500 mt-1">
-                          {file.size.toFixed(1)} MB
+                          {formatFileSize(file.fileSize)} MB
                         </p>
                       </div>
                     </div>
@@ -145,16 +129,7 @@ export const UploadedFilesList = () => {
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center space-x-1">
                         <CalendarIcon className="h-4 w-4" />
-                        <span>
-                          {new Date(file.uploadDate).toLocaleDateString(
-                            "en-US",
-                            {
-                              year: "numeric",
-                              month: "2-digit",
-                              day: "2-digit",
-                            }
-                          )}
-                        </span>
+                        <span>{formatDate(file.createdAt)}</span>
                       </div>
 
                       {file.recordCount && (
@@ -189,7 +164,7 @@ export const UploadedFilesList = () => {
           ))}
         </div>
 
-        {hardcodedFiles.length === 0 && (
+        {files.length === 0 && (
           <div className="text-center py-12">
             <FileIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">

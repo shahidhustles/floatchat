@@ -23,4 +23,24 @@ export default defineSchema({
   })
     .index("by_user", ["userId"]) // Index by userId for efficient queries
     .index("by_chatId", ["chatId"]), // Index by chatId for efficient lookups
+
+  // NC File uploads and processing
+  ncFiles: defineTable({
+    userId: v.string(), // Clerk user ID
+    filename: v.string(),
+    storageId: v.id("_storage"), // Convex file storage ID
+    fileSize: v.number(), // File size in bytes
+    status: v.union(
+      v.literal("uploaded"),
+      v.literal("processing"),
+      v.literal("completed"),
+      v.literal("failed")
+    ),
+    processingLog: v.optional(v.string()), // Error messages or processing info
+    recordCount: v.optional(v.number()), // Number of records extracted
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_status", ["status"]),
 });

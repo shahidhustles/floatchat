@@ -3,6 +3,9 @@ import React, { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { toast } from "sonner";
 
 const mainVariant = {
   initial: {
@@ -25,17 +28,112 @@ const secondaryVariant = {
   },
 };
 
+interface UploadingFile {
+  file: File;
+  progress: number;
+  status: "uploading" | "processing" | "completed" | "failed";
+  fileId?: string;
+}
+
 export const FileUpload = ({
   onChange,
 }: {
   onChange?: (files: File[]) => void;
 }) => {
-  const [files, setFiles] = useState<File[]>([]);
+  const [uploadingFiles, setUploadingFiles] = useState<UploadingFile[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (newFiles: File[]) => {
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-    onChange && onChange(newFiles);
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
+  const saveFile = useMutation(api.files.saveFile);
+
+  const handleFileChange = async (newFiles: File[]) => {
+    // Add files to uploading state
+    const newUploadingFiles = newFiles.map((file) => ({
+      file,
+      progress: 0,
+      status: "uploading" as const,
+    }));
+
+    setUploadingFiles((prev) => [...prev, ...newUploadingFiles]);
+
+    // Process each file
+    for (let i = 0; i < newFiles.length; i++) {
+      const file = newFiles[i];
+      await uploadFile(file, i + uploadingFiles.length);
+    }
+
+    if (onChange) {
+      onChange(newFiles);
+    }
+  };
+
+  const uploadFile = async (file: File, index: number) => {
+    try {
+      // Step 1: Generate upload URL
+      const postUrl = await generateUploadUrl();
+
+      // Step 2: Upload file to Convex storage
+      const result = await fetch(postUrl, {
+        method: "POST",
+        headers: { "Content-Type": file.type },
+        body: file,
+      });
+
+      if (!result.ok) {
+        throw new Error("Upload failed");
+      }
+
+      const { storageId } = await result.json();
+
+      // Update progress
+      setUploadingFiles((prev) =>
+        prev.map((f, i) => (i === index ? { ...f, progress: 50 } : f))
+      );
+
+      // Step 3: Save file metadata
+      const fileId = await saveFile({
+        filename: file.name,
+        storageId,
+        fileSize: file.size,
+      });
+
+      // Update to processing state
+      setUploadingFiles((prev) =>
+        prev.map((f, i) =>
+          i === index ? { ...f, progress: 75, status: "processing", fileId } : f
+        )
+      );
+
+      // Step 4: Trigger processing via Python server
+      const pythonServerUrl =
+        process.env.NEXT_PUBLIC_PYTHON_SERVER_URL || "http://localhost:8000";
+      const processResponse = await fetch(`${pythonServerUrl}/ingestion/v1`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileId }),
+      });
+
+      if (!processResponse.ok) {
+        throw new Error("Processing failed");
+      }
+
+      // Update to completed
+      setUploadingFiles((prev) =>
+        prev.map((f, i) =>
+          i === index ? { ...f, progress: 100, status: "completed" } : f
+        )
+      );
+
+      toast.success(`${file.name} uploaded and processed successfully!`);
+    } catch (error) {
+      setUploadingFiles((prev) =>
+        prev.map((f, i) => (i === index ? { ...f, status: "failed" } : f))
+      );
+
+      toast.error(
+        `Failed to upload ${file.name}: ${error instanceof Error ? error.message : "Unknown error"}`
+      );
+    }
   };
 
   const handleClick = () => {
@@ -79,14 +177,19 @@ export const FileUpload = ({
             Supported format: NetCDF (.nc files only)
           </p>
           <div className="relative w-full mt-10 max-w-xl mx-auto">
-            {files.length > 0 &&
-              files.map((file, idx) => (
+            {uploadingFiles.length > 0 &&
+              uploadingFiles.map((uploadingFile, idx) => (
                 <motion.div
                   key={"file" + idx}
                   layoutId={idx === 0 ? "file-upload" : "file-upload-" + idx}
                   className={cn(
-                    "relative overflow-hidden z-40 bg-white dark:bg-neutral-900 flex flex-col items-start justify-start md:h-24 p-4 mt-4 w-full mx-auto rounded-md",
-                    "shadow-sm"
+                    "relative overflow-hidden z-40 bg-white dark:bg-neutral-900 flex flex-col items-start justify-start md:h-28 p-4 mt-4 w-full mx-auto rounded-md",
+                    "shadow-sm border",
+                    uploadingFile.status === "completed" && "border-green-200",
+                    uploadingFile.status === "failed" && "border-red-200",
+                    uploadingFile.status === "processing" &&
+                      "border-yellow-200",
+                    uploadingFile.status === "uploading" && "border-blue-200"
                   )}
                 >
                   <div className="flex justify-between w-full items-center gap-4">
@@ -96,7 +199,7 @@ export const FileUpload = ({
                       layout
                       className="text-base text-neutral-700 dark:text-neutral-300 truncate max-w-xs"
                     >
-                      {file.name}
+                      {uploadingFile.file.name}
                     </motion.p>
                     <motion.p
                       initial={{ opacity: 0 }}
@@ -104,7 +207,7 @@ export const FileUpload = ({
                       layout
                       className="rounded-lg px-2 py-1 w-fit shrink-0 text-sm text-neutral-600 dark:bg-neutral-800 dark:text-white shadow-input"
                     >
-                      {(file.size / (1024 * 1024)).toFixed(2)} MB
+                      {(uploadingFile.file.size / (1024 * 1024)).toFixed(2)} MB
                     </motion.p>
                   </div>
 
@@ -115,21 +218,44 @@ export const FileUpload = ({
                       layout
                       className="px-1 py-0.5 rounded-md bg-gray-100 dark:bg-neutral-800 "
                     >
-                      {file.type}
+                      {uploadingFile.file.type || "application/x-netcdf"}
                     </motion.p>
 
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       layout
+                      className={cn(
+                        "px-2 py-1 rounded text-xs font-medium",
+                        uploadingFile.status === "uploading" &&
+                          "bg-blue-100 text-blue-800",
+                        uploadingFile.status === "processing" &&
+                          "bg-yellow-100 text-yellow-800",
+                        uploadingFile.status === "completed" &&
+                          "bg-green-100 text-green-800",
+                        uploadingFile.status === "failed" &&
+                          "bg-red-100 text-red-800"
+                      )}
                     >
-                      modified{" "}
-                      {new Date(file.lastModified).toLocaleDateString()}
+                      {uploadingFile.status}
                     </motion.p>
                   </div>
+
+                  {/* Progress bar */}
+                  {uploadingFile.status !== "completed" &&
+                    uploadingFile.status !== "failed" && (
+                      <div className="w-full mt-2">
+                        <div className="bg-gray-200 rounded-full h-1.5">
+                          <div
+                            className="bg-blue-600 h-1.5 rounded-full transition-all duration-300"
+                            style={{ width: `${uploadingFile.progress}%` }}
+                          />
+                        </div>
+                      </div>
+                    )}
                 </motion.div>
               ))}
-            {!files.length && (
+            {!uploadingFiles.length && (
               <motion.div
                 layoutId="file-upload"
                 variants={mainVariant}
@@ -158,7 +284,7 @@ export const FileUpload = ({
               </motion.div>
             )}
 
-            {!files.length && (
+            {!uploadingFiles.length && (
               <motion.div
                 variants={secondaryVariant}
                 className="absolute opacity-0 border border-dashed border-sky-400 inset-0 z-30 bg-transparent flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md"

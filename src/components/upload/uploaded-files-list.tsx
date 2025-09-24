@@ -64,9 +64,11 @@ const getStatusBadge = (status: UploadedFile["status"]) => {
 
 export const UploadedFilesList = () => {
   const { user } = useUser();
-  const files =
-    useQuery(api.files.getUserFiles, user?.id ? { userId: user.id } : "skip") ||
-    [];
+  const filesQuery = useQuery(
+    api.files.getUserFiles,
+    user?.id ? { userId: user.id } : "skip"
+  );
+  const files = filesQuery || [];
 
   const formatFileSize = (bytes: number) => {
     return (bytes / (1024 * 1024)).toFixed(1);
@@ -79,6 +81,26 @@ export const UploadedFilesList = () => {
       day: "2-digit",
     });
   };
+
+  if (filesQuery === undefined) {
+    return (
+      <div className="h-full flex flex-col">
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Uploaded Files
+          </h2>
+          <p className="text-gray-600">
+            NetCDF files processed through the ingestion pipeline
+          </p>
+        </div>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="flex items-center space-x-2">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full flex flex-col">

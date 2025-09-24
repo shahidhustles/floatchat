@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { FileIcon, CalendarIcon, DatabaseIcon } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
 
 interface UploadedFile {
   id: string;
@@ -62,7 +63,10 @@ const getStatusBadge = (status: UploadedFile["status"]) => {
 };
 
 export const UploadedFilesList = () => {
-  const files = useQuery(api.files.getUserFiles) || [];
+  const { user } = useUser();
+  const files =
+    useQuery(api.files.getUserFiles, user?.id ? { userId: user.id } : "skip") ||
+    [];
 
   const formatFileSize = (bytes: number) => {
     return (bytes / (1024 * 1024)).toFixed(1);

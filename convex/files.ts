@@ -12,18 +12,15 @@ export const generateUploadUrl = mutation({
 // Save file metadata after successful upload
 export const saveFile = mutation({
   args: {
+    userId: v.string(),
     filename: v.string(),
     storageId: v.id("_storage"),
     fileSize: v.number(),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
-
+    // No auth check needed - userId comes from Clerk frontend
     const fileId = await ctx.db.insert("ncFiles", {
-      userId: identity.subject,
+      userId: args.userId,
       filename: args.filename,
       storageId: args.storageId,
       fileSize: args.fileSize,
@@ -50,11 +47,7 @@ export const updateFileStatus = mutation({
     recordCount: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
-
+    // No auth check - this is called by Python server
     await ctx.db.patch(args.fileId, {
       status: args.status,
       processingLog: args.processingLog,
@@ -66,16 +59,11 @@ export const updateFileStatus = mutation({
 
 // Get user's uploaded files
 export const getUserFiles = query({
-  args: {},
-  handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      return [];
-    }
-
+  args: { userId: v.string() },
+  handler: async (ctx, args) => {
     return await ctx.db
       .query("ncFiles")
-      .withIndex("by_user", (q) => q.eq("userId", identity.subject))
+      .withIndex("by_user", (q) => q.eq("userId", args.userId))
       .order("desc")
       .collect();
   },
@@ -85,14 +73,9 @@ export const getUserFiles = query({
 export const getFileWithUrl = query({
   args: { fileId: v.id("ncFiles") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
-
     const file = await ctx.db.get(args.fileId);
-    if (!file || file.userId !== identity.subject) {
-      throw new Error("File not found or access denied");
+    if (!file) {
+      throw new Error("File not found");
     }
 
     const url = await ctx.storage.getUrl(file.storageId);

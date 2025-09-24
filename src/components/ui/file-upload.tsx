@@ -6,6 +6,7 @@ import { useDropzone } from "react-dropzone";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { toast } from "sonner";
+import { useUser } from "@clerk/nextjs";
 
 const mainVariant = {
   initial: {
@@ -42,6 +43,7 @@ export const FileUpload = ({
 }) => {
   const [uploadingFiles, setUploadingFiles] = useState<UploadingFile[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { user } = useUser();
 
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const saveFile = useMutation(api.files.saveFile);
@@ -69,18 +71,51 @@ export const FileUpload = ({
 
   const uploadFile = async (file: File, index: number) => {
     try {
+      console.log(
+        "Starting upload for file:",
+        file.name,
+        "type:",
+        file.type,
+        "size:",
+        file.size
+      );
+
       // Step 1: Generate upload URL
-      const postUrl = await generateUploadUrl();
+      console.log("Generating upload URL...");
+      let postUrl;
+      try {
+        postUrl = await generateUploadUrl();
+        console.log("Generated upload URL:", postUrl);
+      } catch (error) {
+        console.error("Failed to generate upload URL:", error);
+        throw new Error(
+          `Failed to generate upload URL: ${error instanceof Error ? error.message : "Unknown error"}`
+        );
+      }
 
       // Step 2: Upload file to Convex storage
+      // For NC files, use application/octet-stream if type is not recognized
+      const contentType = file.type || "application/octet-stream";
+      console.log("Using content type:", contentType);
+
+      console.log("Uploading file to Convex storage...");
       const result = await fetch(postUrl, {
         method: "POST",
-        headers: { "Content-Type": file.type },
+        headers: { "Content-Type": contentType },
         body: file,
       });
 
+      console.log("Upload response status:", result.status);
+
       if (!result.ok) {
-        throw new Error("Upload failed");
+        const errorText = await result.text();
+        console.error(
+          "Upload failed with status:",
+          result.status,
+          "error:",
+          errorText
+        );
+        throw new Error(`Upload failed: ${result.status} - ${errorText}`);
       }
 
       const { storageId } = await result.json();
@@ -91,11 +126,18 @@ export const FileUpload = ({
       );
 
       // Step 3: Save file metadata
+      if (!user?.id) {
+        throw new Error("User not authenticated");
+      }
+
+      console.log("Saving file metadata with storageId:", storageId);
       const fileId = await saveFile({
+        userId: user.id,
         filename: file.name,
         storageId,
         fileSize: file.size,
       });
+      console.log("File saved with ID:", fileId);
 
       // Update to processing state
       setUploadingFiles((prev) =>

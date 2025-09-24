@@ -43,3 +43,6 @@ next-env.d.ts
 
 # legacy chat page
 /src/app/chat/\[chatId]/page.old.tsx
+
+*.md
+!README.md

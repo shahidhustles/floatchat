@@ -35,11 +35,14 @@ const GradientBackground = ({
 export default function ChatPage() {
   const router = useRouter();
 
-  const handleSendMessage = (message: string) => {
+  const handleSendMessage = (message: string, expertMode: boolean = false) => {
     // Generate new chat ID and redirect with initial message
     const chatId = nanoid();
     const encodedMessage = encodeURIComponent(message);
-    router.push(`/chat/${chatId}?initialMessage=${encodedMessage}`);
+    const expertModeParam = expertMode ? "&expertMode=true" : "";
+    router.push(
+      `/chat/${chatId}?initialMessage=${encodedMessage}${expertModeParam}`
+    );
   };
 
   return (

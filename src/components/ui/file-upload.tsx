@@ -8,6 +8,10 @@ import { api } from "../../../convex/_generated/api";
 import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
 
+//TODOD : add border to left section
+
+
+
 const mainVariant = {
   initial: {
     x: 0,
@@ -148,7 +152,7 @@ export const FileUpload = ({
 
       // Step 4: Trigger processing via Python server
       const pythonServerUrl =
-        process.env.NEXT_PUBLIC_PYTHON_SERVER_URL || "http://localhost:8000";
+        process.env.NEXT_PUBLIC_INGESTION_SERVER_URL || "http://localhost:8000";
       const processResponse = await fetch(`${pythonServerUrl}/ingestion/v1`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

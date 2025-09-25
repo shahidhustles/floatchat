@@ -13,6 +13,7 @@ import { nanoid } from "nanoid";
 import { convex } from "@/lib/convex/convex";
 import { api } from "../../../../convex/_generated/api";
 import { findRelevantContent } from "@/lib/ai/embedding";
+import { queryOceanGPT } from "@/actions/oceangpt-query";
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GEMINI_API_KEY!,
@@ -24,11 +25,15 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const { messages, chatId }: { messages: UIMessage[]; chatId?: string } =
+  const {
+    messages,
+    chatId,
+    expertMode,
+  }: { messages: UIMessage[]; chatId?: string; expertMode?: boolean } =
     await req.json();
 
-  // Enhanced system prompt for FloatChat
-  const systemPrompt = `You are FloatChat, an expert AI oceanographer and marine data specialist.
+  // Enhanced system prompt for FloatChat - conditional based on expert mode
+  const baseSystemPrompt = `You are FloatChat, an expert AI oceanographer and marine data specialist.
 
 You have expertise in:
 - Ocean data analysis and ARGO float measurements
@@ -44,6 +49,19 @@ Guidelines:
 - Be enthusiastic about ocean science and democratizing data access
 
 Your mission: Bridge the gap between complex oceanographic data and practical insights for scientists, policymakers, and researchers.`;
+
+  const expertModeAddition = `
+
+🧠 EXPERT MODE ACTIVE:
+- When users ask questions related to ocean, marine science, oceanography, or marine ecosystems, use the queryOceanGPT tool
+- The queryOceanGPT tool provides access to specialized OceanGPT-7B model trained specifically on marine science data
+- Use this tool for detailed oceanographic analysis, complex marine phenomena explanations, and specialized research insights
+- Only call queryOceanGPT when the user's question is directly related to ocean/marine science domains
+- Combine insights from both your knowledge base (getInformation) and the specialized model (queryOceanGPT) for comprehensive responses`;
+
+  const systemPrompt = expertMode
+    ? baseSystemPrompt + expertModeAddition
+    : baseSystemPrompt;
 
   // Get existing messages from Convex if chatId is provided
   let existingMessages: Array<{
@@ -90,6 +108,54 @@ Your mission: Bridge the gap between complex oceanographic data and practical in
         }),
         execute: async ({ question }) => {
           return await findRelevantContent(question);
+        },
+      }),
+
+      // Query OceanGPT for specialized marine science insights
+      queryOceanGPT: tool({
+        description: `Query the specialized OceanGPT-7B model for in-depth marine science analysis and oceanic data interpretation.
+        This model is specifically trained on oceanographic data and marine science literature.
+        Use this tool when you need specialized analysis, detailed explanations of oceanic phenomena, 
+        or when the user is asking complex marine science questions that require expert-level knowledge.`,
+        inputSchema: z.object({
+          prompt: z
+            .string()
+            .describe(
+              "The marine science question or prompt to send to OceanGPT"
+            ),
+          max_tokens: z
+            .number()
+            .optional()
+            .default(1000)
+            .describe("Maximum number of tokens to generate (default: 1000)"),
+          temperature: z
+            .number()
+            .min(0)
+            .max(2)
+            .optional()
+            .default(0.7)
+            .describe(
+              "Sampling temperature for response generation (0.0 to 2.0, default: 0.7)"
+            ),
+        }),
+        execute: async ({ prompt, max_tokens, temperature }) => {
+          const result = await queryOceanGPT({
+            prompt,
+            max_tokens,
+            temperature,
+          });
+
+          if (!result.success) {
+            return {
+              error: result.error || "Failed to query OceanGPT",
+              success: false,
+            };
+          }
+
+          return {
+            response: result.data,
+            success: true,
+          };
         },
       }),
     },

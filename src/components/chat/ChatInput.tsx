@@ -2,26 +2,30 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Send } from "lucide-react";
+import { Send, Zap } from "lucide-react";
 import TextareaAutosize from "react-textarea-autosize";
+import { useExpertMode } from "@/contexts/expert-mode-context";
 
 interface ChatInputProps {
-  onSendMessage?: (message: string) => void;
+  onSendMessage?: (message: string, expertMode?: boolean) => void;
   isMainPage?: boolean;
+  onExpertMode?: () => void;
 }
 
 export default function ChatInput({
   onSendMessage,
   isMainPage = false,
+  onExpertMode,
 }: ChatInputProps) {
   const [message, setMessage] = useState("");
+  const { expertMode, toggleExpertMode } = useExpertMode();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim() || !onSendMessage) return;
 
-    // Always use onSendMessage now - main page handles the flow
-    onSendMessage(message);
+    // Pass both message and expert mode state
+    onSendMessage(message, expertMode);
     setMessage("");
   };
 
@@ -56,6 +60,27 @@ export default function ChatInput({
             />
           </div>
 
+          {/* Expert Mode Button */}
+          <div className="p-2">
+            <Button
+              type="button"
+              size="sm"
+              variant={expertMode ? "default" : "outline"}
+              onClick={() => {
+                toggleExpertMode();
+                onExpertMode?.();
+              }}
+              className={`rounded-lg p-2 transition-colors mr-2 ${
+                expertMode
+                  ? "bg-blue-500 hover:bg-blue-600 text-white"
+                  : "border-blue-500 text-blue-500 hover:bg-blue-50"
+              }`}
+              title="Toggle Expert Mode - Uses specialized OceanGPT model"
+            >
+              <Zap className="w-4 h-4" />
+            </Button>
+          </div>
+
           {/* Send Button */}
           <div className="p-2">
             <Button
@@ -70,9 +95,18 @@ export default function ChatInput({
         </div>
 
         {/* Bottom Helper Text */}
-        <div className="text-xs text-slate-700 mt-2 text-center drop-shadow-sm">
-          FloatChat can help analyze oceanographic data, visualize trends, and
-          provide research insights.
+        <div className="text-xs mt-2 text-center drop-shadow-sm">
+          {expertMode ? (
+            <span className="text-slate-700 font-medium">
+              Expert Mode Active - Using specialized OceanGPT model for advanced
+              marine science analysis
+            </span>
+          ) : (
+            <span className="text-slate-700">
+              FloatChat can help analyze oceanographic data, visualize trends,
+              and provide research insights.
+            </span>
+          )}
         </div>
       </form>
     </div>

@@ -7,6 +7,7 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
+import { useExpertMode } from "@/contexts/expert-mode-context";
 
 interface ChatInstancePageProps {
   params: Promise<{
@@ -14,6 +15,7 @@ interface ChatInstancePageProps {
   }>;
   searchParams: Promise<{
     initialMessage?: string;
+    expertMode?: string;
   }>;
 }
 
@@ -25,6 +27,9 @@ export default function ChatInstancePage({
   const unwrappedParams = use(params);
   const unwrappedSearchParams = use(searchParams);
   const chatId = unwrappedParams.chatId;
+
+  // Expert mode context
+  const { expertMode, setExpertMode } = useExpertMode();
 
   // Load existing messages from database
   const existingMessages = useQuery(api.chats.getMessagesForChat, { chatId });
@@ -41,10 +46,17 @@ export default function ChatInstancePage({
     transport: new DefaultChatTransport({
       api: "/api/chat",
       prepareSendMessagesRequest: ({ messages, body }) => {
+        // Extract expert mode from the last message's metadata
+        const lastMessage = messages[messages.length - 1];
+        const expertMode =
+          (lastMessage?.metadata as { expertMode?: boolean })?.expertMode ||
+          false;
+
         return {
           body: {
             chatId: chatId, // Always pass the chatId from URL
             messages,
+            expertMode: expertMode, // Pass expert mode flag
             ...body,
           },
         };
@@ -70,6 +82,13 @@ export default function ChatInstancePage({
     }
   }, [existingMessages, setMessages]);
 
+  // Set expert mode from URL parameter
+  useEffect(() => {
+    if (unwrappedSearchParams.expertMode === "true") {
+      setExpertMode(true);
+    }
+  }, [unwrappedSearchParams.expertMode, setExpertMode]);
+
   // Handle initial message from search params
   const handleInitialMessage = useCallback(() => {
     if (
@@ -82,10 +101,18 @@ export default function ChatInstancePage({
         unwrappedSearchParams.initialMessage
       );
       // Send the initial message immediately
-      sendMessage({ text: initialMsg });
+      sendMessage({
+        text: initialMsg,
+        metadata: { expertMode: expertMode }, // Use expert mode from context
+      });
       initialMessageSent.current = true;
     }
-  }, [unwrappedSearchParams.initialMessage, messages.length, sendMessage]);
+  }, [
+    unwrappedSearchParams.initialMessage,
+    messages.length,
+    sendMessage,
+    expertMode,
+  ]);
 
   // For new chats with initial message, send it immediately without waiting
   useEffect(() => {
@@ -98,7 +125,10 @@ export default function ChatInstancePage({
       const initialMsg = decodeURIComponent(
         unwrappedSearchParams.initialMessage
       );
-      sendMessage({ text: initialMsg });
+      sendMessage({
+        text: initialMsg,
+        metadata: { expertMode: expertMode }, // Use expert mode from context
+      });
       initialMessageSent.current = true;
       existingMessagesLoaded.current = true; // Mark as loaded since it's a new chat
     }
@@ -107,6 +137,7 @@ export default function ChatInstancePage({
     messages.length,
     sendMessage,
     existingMessages,
+    expertMode,
   ]);
 
   useEffect(() => {
@@ -123,12 +154,15 @@ export default function ChatInstancePage({
     }
   }, [messages, status]);
 
-  const handleSendMessage = (content: string) => {
+  const handleSendMessage = (content: string, expertMode: boolean = false) => {
     // Don't send messages while loading existing messages
     if (isLoadingExistingMessages) return;
 
-    // Send message using v5 API
-    sendMessage({ text: content });
+    // Send message using v5 API with expert mode flag
+    sendMessage({
+      text: content,
+      metadata: { expertMode },
+    });
   };
 
   const isLoading = status === "streaming" || status === "submitted";

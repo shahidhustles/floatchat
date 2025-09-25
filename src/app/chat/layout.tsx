@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/sidebar";
 import { ChatSessionProvider } from "@/lib/convex/convex-chat-context";
 import { SharedSidebar } from "@/components/layout/shared-sidebar";
+import { ExpertModeProvider } from "@/contexts/expert-mode-context";
 
 export default function ChatLayout({
   children,
@@ -15,18 +16,20 @@ export default function ChatLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ChatSessionProvider>
-      <SidebarProvider>
-        <div className="flex h-screen w-full">
-          <SharedSidebar showChatSessions={true} />
-          <SidebarInset className="flex-1">
-            <div className="absolute top-4 left-4 z-50">
-              <SidebarTrigger className="bg-blue-50/90 hover:bg-blue-100/90 backdrop-blur-sm shadow-md border border-blue-200/50 text-blue-700 hover:text-blue-900" />
-            </div>
-            <main className="h-full overflow-hidden">{children}</main>
-          </SidebarInset>
-        </div>
-      </SidebarProvider>
-    </ChatSessionProvider>
+    <ExpertModeProvider>
+      <ChatSessionProvider>
+        <SidebarProvider>
+          <div className="flex h-screen w-full">
+            <SharedSidebar showChatSessions={true} />
+            <SidebarInset className="flex-1">
+              <div className="absolute top-4 left-4 z-50">
+                <SidebarTrigger className="bg-blue-50/90 hover:bg-blue-100/90 backdrop-blur-sm shadow-md border border-blue-200/50 text-blue-700 hover:text-blue-900" />
+              </div>
+              <main className="h-full overflow-hidden">{children}</main>
+            </SidebarInset>
+          </div>
+        </SidebarProvider>
+      </ChatSessionProvider>
+    </ExpertModeProvider>
   );
 }
